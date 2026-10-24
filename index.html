@@ -3,62 +3,127 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Willow Pond Records — a cozy fishing game by NiBi Games</title>
-<meta name="description" content="Willow Pond Records is a cozy fishing game for Android: cast from a quiet dock, reel with a brass wheel, find old records, meet Barnaby Bramble and fish four lakes with your buddies.">
-<meta property="og:title" content="Willow Pond Records">
-<meta property="og:description" content="A cozy fishing game about a quiet dock, a brass reel and old records. By NiBi Games.">
-<meta property="og:image" content="https://gamesnibi.github.io/assets/og.jpg">
+<title>NiBi Games — Small games, made with care</title>
+<meta name="description" content="NiBi Games is an independent studio making cozy, hand-crafted games for phones. Our first game, Willow Pond Records, is coming soon to Google Play.">
+<meta property="og:title" content="NiBi Games">
+<meta property="og:description" content="Small games, made with care. Independent studio making cozy games for phones.">
+<meta property="og:image" content="https://gamesnibi.github.io/assets/og.png">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#24170e">
+<meta property="og:url" content="https://gamesnibi.github.io/">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<header class="bar">
+<header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="./"><img src="assets/icon.png" alt="">Willow Pond Records</a>
-    <nav><a href="./" aria-current="page">Home</a><a href="privacy.html">Privacy</a><a href="mailto:gamesnibi@gmail.com">Contact</a></nav>
+    <a class="logo" href="./"><img src="assets/nibi-mark.png" alt="">NiBi <span>Games</span></a>
+    <nav><a href="#games">Games</a><a href="#about" class="hide-sm">About</a><a href="#contact">Contact</a></nav>
   </div>
 </header>
 
-<main class="wrap">
-  <section class="card">
-    <div class="hero">
-      <img class="icon" src="assets/icon.png" alt="Willow Pond Records app icon: a vinyl record floating on the water with a red bobber">
-      <div>
-        <div class="kicker">A cozy fishing game by NiBi Games</div>
-        <h1>Willow Pond Records</h1>
-        <p class="lede">Cast from a sleepy dock, turn a brass reel you can feel in your hands, and fish four beautiful lakes —
-          with old records turning up in waterproof sleeves along the way.</p>
-        <span class="pill">Coming soon <small>on Google Play</small></span>
+<main>
+  <div class="wrap hero">
+    <div class="hero-spacer"></div>
+    <img src="assets/nibi-mark.png" alt="" width="56" height="56" style="border-radius:14px">
+    <div class="eyebrow" style="margin-top:22px">Independent game studio</div>
+    <h1>Small games, made with care.</h1>
+    <p>NiBi Games makes cozy, hand-crafted games for phones — the kind you pick up for five minutes and keep coming back to.</p>
+    <div class="actions">
+      <a class="btn primary" href="#games">See our games</a>
+      <a class="btn" href="mailto:gamesnibi@gmail.com">Get in touch</a>
+    </div>
+    <a class="scroll-cue" href="#games" aria-label="Scroll to our games"><i></i>Scroll</a>
+  </div>
+
+  <section id="games">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><div class="eyebrow">Our games</div><h2>Now in development</h2></div>
+      </div>
+
+      <article class="game reveal">
+        <div class="game-top">
+          <img src="assets/icon.png" alt="Willow Pond Records icon" width="96" height="96">
+          <div>
+            <h3>Willow Pond Records</h3>
+            <p>A cozy fishing game about a quiet dock, a brass reel and old records.</p>
+          </div>
+          <span class="tag"><b></b>Coming soon to Android</span>
+        </div>
+        <div class="gallery" aria-label="Willow Pond Records screenshots">
+          <img src="assets/shot-pond.jpg" alt="The dock at Willow Pond with snowy mountains and a radio on a crate" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-reel.jpg" alt="Reeling in a fish with the brass wheel and tension gauge" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-shop.jpg" alt="Barnaby Bramble behind the counter of his tackle shop" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-oasis.jpg" alt="The Golden Oasis lake among desert dunes and palms" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-buddies.jpg" alt="The fishing buddies screen" loading="lazy" width="540" height="1170">
+        </div>
+        <div class="game-body">
+          <div>
+            <p>Cast from a sleepy dock, turn a brass reel you can feel in your hands, and fish four beautiful lakes. Every fish fights in its own way, old records turn up in waterproof sleeves, and a legendary boss lurks in every lake.</p>
+            <p>Visit Barnaby Bramble's tackle shop, bring a fishing buddy along, and tune the dock radio to your favourite station.</p>
+            <div class="links"><a href="privacy.html">Privacy policy</a><a href="mailto:gamesnibi@gmail.com?subject=Willow%20Pond%20Records">Feedback</a></div>
+          </div>
+          <ul>
+            <li>Four lakes and 34 fish to discover</li>
+            <li>A tactile brass reel with real haptic feedback</li>
+            <li>Four boss fish with their own attacks</li>
+            <li>Ten unlockable fishing buddies</li>
+            <li>A dock radio with lake stations and vintage records</li>
+            <li>Plays offline — no accounts, no tracking</li>
+          </ul>
+        </div>
+      </article>
+      <p class="more reveal">More games on the way.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="reveal">
+        <div class="eyebrow">About</div>
+        <h2 style="font-size:clamp(32px,4.6vw,48px);margin-top:12px">A tiny studio with big ideas.</h2>
+      </div>
+      <div class="reveal">
+        <p>NiBi Games is an independent studio based in Canada. We believe mobile games can be calm, generous and beautiful — games that respect your time and your privacy.</p>
+        <p>Everything we make is play-tested with friends and family before it ships, and we read every message players send us.</p>
       </div>
     </div>
+  </section>
 
-    <h2>Screenshots</h2>
-    <div class="shots">
-      <figure><img src="assets/shot-pond.jpg" alt="The dock at Willow Pond with mountains, a radio on a crate and Biscuit the dog" loading="lazy" width="540" height="1170"><figcaption>Willow Pond</figcaption></figure>
-      <figure><img src="assets/shot-reel.jpg" alt="Reeling in with the brass wheel and the tension gauge" loading="lazy" width="540" height="1170"><figcaption>Keep the needle in the green</figcaption></figure>
-      <figure><img src="assets/shot-shop.jpg" alt="Barnaby Bramble behind the counter of his tackle shop" loading="lazy" width="540" height="1170"><figcaption>Bramble's Bait &amp; Tackle</figcaption></figure>
-      <figure><img src="assets/shot-oasis.jpg" alt="The dock at Golden Oasis among desert dunes and palms" loading="lazy" width="540" height="1170"><figcaption>Golden Oasis</figcaption></figure>
-      <figure><img src="assets/shot-buddies.jpg" alt="The Fishing Buddies screen with Biscuit the dog and Lily" loading="lazy" width="540" height="1170"><figcaption>Fishing buddies</figcaption></figure>
-    </div>
-
-    <h2>What's in the water</h2>
-    <div class="features">
-      <div class="feature"><h3>A reel you can feel</h3><p>Turn the brass wheel with real haptic clicks. Every fish fights its own way — runs, dives, jumps and head-shakes.</p></div>
-      <div class="feature"><h3>Four lakes, 34 fish</h3><p>Willow Pond, Golden Oasis, Icy North and Jade Garden — each with its own fish, music and scenery.</p></div>
-      <div class="feature"><h3>Legendary bosses</h3><p>Old Mossback, the Infernal Fish, Frostfin and the Techno Fish. Watch for the warnings and keep your finger nimble.</p></div>
-      <div class="feature"><h3>Bramble's shop</h3><p>Barnaby Bramble sells upgrades, lucky charms and shiny new looks — and has a tall tale for every one.</p></div>
-      <div class="feature"><h3>Fishing buddies</h3><p>Bring your dog, your niece, Uncle Walt or a parrot in a captain's hat. They cheer every catch.</p></div>
-      <div class="feature"><h3>The dock radio</h3><p>Tune in to each lake's station or play the vintage records you've fished up.</p></div>
+  <section id="contact">
+    <div class="wrap about">
+      <div class="reveal">
+        <div class="eyebrow">Contact</div>
+        <h2 style="font-size:clamp(32px,4.6vw,48px);margin-top:12px">Say hello.</h2>
+      </div>
+      <div class="contact-card reveal">
+        <h3>Questions, feedback or bug reports</h3>
+        <p>We'd love to hear from you. We usually reply within a few days.</p>
+        <a class="btn primary" href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <img class="nibi" src="assets/nibi.jpg" alt="NiBi Games">
-  <div>© 2026 NiBi Games · <a href="privacy.html">Privacy policy</a> · <a href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a></div>
+  <div class="wrap">
+    <div>© 2026 NiBi Games</div>
+    <nav><a href="privacy.html">Privacy</a><a href="mailto:gamesnibi@gmail.com">Contact</a></nav>
+  </div>
 </footer>
+
+<script>
+  // header hairline once you scroll; fade sections in as they arrive
+  const top = document.getElementById('top');
+  const onScroll = () => top.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  } else document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+</script>
 </body>
 </html>
