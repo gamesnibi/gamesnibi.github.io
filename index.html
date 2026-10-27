@@ -116,14 +116,25 @@
 </footer>
 
 <script>
-  // header hairline once you scroll; fade sections in as they arrive
-  const top = document.getElementById('top');
-  const onScroll = () => top.classList.toggle('scrolled', scrollY > 8);
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-  } else document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  // header hairline once you scroll; fade sections in as they arrive.
+  // Wrapped in a function on purpose: a top-level `const top` clashes with the browser's built-in window.top, which
+  // stopped this script and left every section below the hero invisible. If anything here fails, show everything.
+  (function () {
+    var header = document.getElementById('top');
+    var reveals = document.querySelectorAll('.reveal');
+    function showAll() { for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('in'); }
+    try {
+      var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 8); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+        for (var i = 0; i < reveals.length; i++) io.observe(reveals[i]);
+      } else showAll();
+    } catch (err) { showAll(); }
+  })();
 </script>
 </body>
 </html>
