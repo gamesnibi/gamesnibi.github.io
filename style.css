@@ -124,3 +124,36 @@ footer{border-top:1px solid var(--line);padding:40px 0 48px;color:var(--faint);f
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer nav{display:flex;gap:22px}
 footer a{color:var(--muted)}
+
+/* Lockin-Inator beta sign-up: its own dark violet panel, in the app's colours */
+.nav-beta{color:#7c3aed!important;font-weight:600!important}
+.beta-pill{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;padding:9px 16px;border-radius:999px;background:#160a2a;color:#f3eefb;font:600 14px var(--sans);box-shadow:0 6px 20px rgba(76,29,149,.25)}
+.beta-pill:hover{text-decoration:none;background:#22103f}
+.beta-pill b{width:8px;height:8px;border-radius:50%;background:#9d5cff;box-shadow:0 0 0 4px rgba(157,92,255,.25)}
+.beta-pill span{color:#c9a7ff}
+section.beta{border-top:0;color:#f3eefb;background:radial-gradient(ellipse 70% 80% at 78% 40%,#2a1250 0,#12061f 48%,#07020d 100%);overflow:hidden}
+.beta-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:56px;align-items:center}
+.beta-eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#c9a7ff}
+.beta-eyebrow b{width:8px;height:8px;border-radius:50%;background:#9d5cff}
+.beta h2{color:#f3eefb;font-size:clamp(36px,5.4vw,60px);margin-top:16px;max-width:13ch}
+.beta h2 em{font-style:normal;color:#c9a7ff}
+.beta-lead{color:#c7bcdc;font-size:clamp(17px,2vw,19px);margin:22px 0 0;max-width:34em}
+.beta-lead strong{color:#f3eefb}
+.beta-steps{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:14px}
+.beta-steps li{display:flex;gap:18px;padding:22px 24px;border-radius:22px;background:rgba(26,11,46,.72);border:1px solid #3b2463}
+.beta-steps .n{flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#9d5cff;color:#07020d;font:700 16px var(--display)}
+.beta-steps h3{color:#f3eefb;font-size:19px;letter-spacing:-.01em;margin-top:5px}
+.beta-steps p{color:#a79bbf;font-size:15.5px;margin:6px 0 0}
+.beta-steps p em{font-style:normal;color:#f3eefb}
+.beta-steps a:not(.btn){color:#c9a7ff}
+.beta-btn{margin-top:14px;background:#9d5cff;border-color:#9d5cff;color:#07020d}
+.beta-btn:hover{background:#b07dff;border-color:#b07dff}
+.beta-btn.ghost{background:transparent;color:#f3eefb;border-color:#5b3d8c}
+.beta-btn.ghost:hover{background:rgba(157,92,255,.12);border-color:#9d5cff}
+.beta-fine{color:#7f7397;font-size:13.5px;margin:22px 0 0}
+.beta-fine a{color:#c9a7ff}
+.beta-art{position:relative;display:flex;justify-content:center}
+.beta-art img{position:relative;width:min(100%,340px);height:auto;filter:drop-shadow(0 30px 60px rgba(80,30,160,.45))}
+.beta-glow{position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(circle,rgba(157,92,255,.35),rgba(157,92,255,0) 65%)}
+@media (max-width:860px){.beta-grid{grid-template-columns:1fr;gap:36px}.beta-art{order:-1}.beta-art img{width:min(52%,210px)}}
+@media (max-width:600px){.beta-steps li{padding:18px;gap:14px}}
