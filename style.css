@@ -157,3 +157,11 @@ section.beta{border-top:0;color:#f3eefb;background:radial-gradient(ellipse 70% 8
 .beta-glow{position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(circle,rgba(157,92,255,.35),rgba(157,92,255,0) 65%)}
 @media (max-width:860px){.beta-grid{grid-template-columns:1fr;gap:36px}.beta-art{order:-1}.beta-art img{width:min(52%,210px)}}
 @media (max-width:600px){.beta-steps li{padding:18px;gap:14px}}
+
+/* policy change notice (privacy page + home page) */
+.notice{border:1.5px solid #f2c94c;background:#fffbea;border-radius:var(--radius);padding:20px 24px;margin:8px 0 28px}
+.notice > strong{display:block;font-family:var(--display);font-size:18px;margin-bottom:4px;color:var(--text)}
+.notice p{margin:6px 0}
+.notice ul{margin:6px 0;padding-left:22px}
+.notice-pill{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:6px 12px;border-radius:999px;background:#fffbea;border:1.5px solid #f2c94c;color:#5a4a10;font-size:14px}
+.notice-pill b{font-weight:600}

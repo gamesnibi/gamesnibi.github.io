@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <header class="top scrolled">
@@ -22,7 +22,25 @@
   <article class="legal">
     <div class="eyebrow">Pond Reels · NiBi Games</div>
     <h1>Privacy Policy</h1>
-    <p class="meta">Effective date: October 24, 2026 · Last updated: October 26, 2026</p>
+    <p class="meta">Effective date: October 24, 2026 · Last updated: October 27, 2026</p>
+
+    <div class="notice" id="updated">
+      <strong>This policy changed on October 27, 2026</strong>
+      <p>We updated it for Pond Reels 1.3. What's new:</p>
+      <ul>
+        <li><strong>Bramble's reminders</strong> (optional): the game can schedule notifications on your phone, for example when a boss
+          attempt is ready again or what tomorrow's catch of the day is. They are set up on your device and nothing is sent over the internet.
+          See <a href="#permissions">Device permissions</a>.</li>
+        <li><strong>The rotate button</strong>: the game reads your phone's motion sensor only to notice when you turn your phone, so it can
+          offer to switch between portrait and landscape. Nothing is recorded.</li>
+        <li><strong>New things in your save</strong>: your van, its decorations and trophies, pets, lake projects and your reminder setting
+          (still saved only on your device).</li>
+        <li><strong>"Coming soon" buttons</strong>: the shop now shows some prices and "watch an ad" buttons, greyed out. They don't work
+          yet, and there is still no advertising or payment software in the game. <a href="#ads">Section 5</a> explains how optional
+          ads and purchases will work once they arrive.</li>
+      </ul>
+      <p>Still true: we don't collect, share or sell any personal information.</p>
+    </div>
 
     <p>This privacy policy explains how <strong>Pond Reels</strong> (the "game" or the "app"), made by
       <strong>NiBi Games</strong> ("we", "us"), handles information. It applies to the game on Android and iOS and to the NiBi Games website.</p>
@@ -31,9 +49,11 @@
       <strong>The short version</strong>
       <ul>
         <li>We do <strong>not</strong> collect, store, share or sell any personal information.</li>
-        <li>There are no accounts, no ads, no analytics and no tracking in the game.</li>
+        <li>Right now there are no accounts, ads, analytics or tracking in the game.</li>
         <li>Your progress is saved only on your own device. The game works without an internet connection.</li>
-        <li>If we ever add online features, ads or purchases, we'll update this policy <em>before</em> they go live.</li>
+        <li>Optional reminders are scheduled on your phone itself; nothing is sent anywhere.</li>
+        <li>Optional rewarded ads and in-app purchases are coming in an update. Ads will always be your choice, and purchases go through
+          your app store. <a href="#ads">Section 5</a> explains what they'll involve.</li>
       </ul>
     </div>
 
@@ -43,6 +63,7 @@
       <li><a href="#device">What the game saves on your device</a></li>
       <li><a href="#permissions">Device permissions</a></li>
       <li><a href="#thirdparty">Third parties</a></li>
+      <li><a href="#ads">Ads and purchases (coming soon)</a></li>
       <li><a href="#children">Children's privacy</a></li>
       <li><a href="#choices">Your choices and deleting your data</a></li>
       <li><a href="#rights">Your privacy rights</a></li>
@@ -68,7 +89,9 @@
       <tr><th>Saved on your device</th><th>Why</th></tr>
       <tr><td>Coins, pearls, upgrades, bait and shop decorations you own</td><td>So you keep what you've earned</td></tr>
       <tr><td>Fish you've caught, records found, lakes opened, trophies, boss attempts</td><td>Your Fish Guide, collection and progress</td></tr>
-      <tr><td>Settings (music, sound and ambience volume, vibration, graphics, radio station)</td><td>Your preferences</td></tr>
+      <tr><td>Your van, its decorations and trophies, pets, and the lake projects you've built</td><td>So your rooms and lakes stay the way you made them</td></tr>
+      <tr><td>Settings (music, sound and ambience volume, vibration, graphics, radio station, reminders on or off)</td><td>Your preferences</td></tr>
+      <tr><td>The reminders waiting to be shown (their time and text)</td><td>So the phone can show them, and put them back after a restart</td></tr>
     </table>
     <p>This information never leaves your device through the game, and we cannot see it.</p>
     <p><strong>Device backups.</strong> If you have turned on your phone's backup feature (for example Google backup on Android or
@@ -79,7 +102,10 @@
     <table>
       <tr><th>Permission</th><th>Used for</th></tr>
       <tr><td>Vibration (Android: <code>VIBRATE</code>)</td><td>Haptic feedback: the reel's clicks and a buzz when a fish bites. You can turn it off in the game's Settings.</td></tr>
+      <tr><td>Notifications (Android 13 and later: <code>POST_NOTIFICATIONS</code>; iPhone: Notifications)</td><td>Bramble's reminders, only if you say yes. The game asks once; you can turn them off in the game's Settings or in your phone's settings at any time. They never arrive at night (between 9:30 pm and 9 am).</td></tr>
+      <tr><td>Run at startup (Android: <code>RECEIVE_BOOT_COMPLETED</code>)</td><td>Only to put your scheduled reminders back after your phone restarts or the game is updated. The game doesn't otherwise run in the background.</td></tr>
     </table>
+    <p>The game also reads your phone's motion sensor to notice when you turn it on its side, so it can show the rotate button. This needs no permission, and nothing about it is saved or sent.</p>
     <p>The game does not ask for any other permission.</p>
 
     <h2 id="thirdparty">4. Third parties</h2>
@@ -92,42 +118,73 @@
       If you have agreed to share diagnostics with the store, it may give us anonymous, combined statistics such as crash rates or
       install counts; these do not identify you.</p>
 
-    <h2 id="children">5. Children's privacy</h2>
+    <h2 id="ads">5. Ads and purchases (coming soon)</h2>
+    <p>These aren't in the game yet. This section explains how they'll work, so nothing comes as a surprise. When they go live we'll
+      add a note at the top of this page.</p>
+    <p><strong>Optional rewarded ads.</strong> You'll be able to choose to watch a short video ad for a bonus, such as double coins
+      for a catch or an extra boss attempt. An ad only plays when you tap to watch one, and the game never shows ads on its own.
+      The ads will be served by <strong>Google AdMob</strong>. When an ad is requested or shown, AdMob may collect and use:</p>
+    <ul>
+      <li>your device's advertising ID (Android) or, only if you allow tracking when asked, the advertising identifier (iPhone);</li>
+      <li>your IP address and the rough location it suggests (for example your country or city);</li>
+      <li>information about your device and the app, such as model, operating system, language and app version;</li>
+      <li>how you interact with the ad (for example whether it was watched to the end), to give you the reward and to prevent fraud.</li>
+    </ul>
+    <p>Google uses this to show the ad, measure it, prevent fraud and, where allowed, to personalise ads. In the European Economic Area,
+      the UK and Switzerland, the game will ask for your consent before ads can be personalised, using Google's consent message. You can
+      change that choice in the game's Settings. Anywhere, you can reset or delete your advertising ID in your phone's settings
+      (Android: <em>Settings → Privacy → Ads</em>; iPhone: <em>Settings → Privacy &amp; Security → Tracking</em>). See
+      <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">how Google uses information from apps that use its services</a>.
+      We don't receive any of this information ourselves, only anonymous, combined totals such as how many ads were watched.</p>
+    <p><strong>In-app purchases.</strong> Some optional extras, such as a bigger tackle box for boss attempts, will be sold through
+      Google Play on Android or the App Store on iPhone. The store handles the payment. We never see your name, email address or
+      payment details. The store tells the game on your phone what you bought, and the game keeps that with your save on your device.
+      Purchases are handled under the <a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a> or
+      <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple Privacy Policy</a>.</p>
+    <p>To show ads and check purchases, the game will need internet access (Android: <code>INTERNET</code>), and on Android the ad
+      software will use the <code>AD_ID</code> permission to read the advertising ID. Everything else in the game will keep working offline.</p>
+
+    <h2 id="children">6. Children's privacy</h2>
     <p>Pond Reels is made for players aged 13 and over and is not directed at children. Because the game collects no personal
       information from anyone, it does not collect personal information from children, including children under 13
       (or the equivalent minimum age where they live). If you believe a child has somehow sent us personal information, contact us
       and we will delete it.</p>
 
-    <h2 id="choices">6. Your choices and deleting your data</h2>
+    <h2 id="choices">7. Your choices and deleting your data</h2>
     <ul>
       <li><strong>Erase your progress:</strong> open the game's Settings and choose <em>Start over</em>.</li>
       <li><strong>Remove everything:</strong> uninstall the game. This deletes its save from your device.</li>
       <li><strong>Vibration and sound:</strong> can be turned off in the game's Settings at any time.</li>
+      <li><strong>Reminders:</strong> turn off <em>Bramble's reminders</em> in the game's Settings, or turn off notifications for Pond Reels in your phone's settings.</li>
+      <li><strong>Ads (once available):</strong> simply don't tap to watch one. You can also change personalised-ads consent in the game's Settings, and reset or delete your advertising ID in your phone's settings.</li>
     </ul>
     <p>Because we don't hold any of your data, there is nothing stored with us to request or delete, but you are always welcome to
       contact us with questions.</p>
 
-    <h2 id="rights">7. Your privacy rights</h2>
+    <h2 id="rights">8. Your privacy rights</h2>
     <p>Depending on where you live, privacy laws such as Canada's PIPEDA, the EU and UK GDPR, or California's CCPA may give you rights
       to access, correct or delete personal information that a company holds about you, and to know whether it is sold or shared.
       We do not collect, sell or share personal information, so we hold none about you. If you have a question or want to exercise a
       right, email us and we will reply within 30 days.</p>
 
-    <h2 id="security">8. Security</h2>
+    <h2 id="security">9. Security</h2>
     <p>Your save stays in the game's private storage on your device, protected by your device's own security. Since we don't
       collect or transmit your information, it isn't stored on any of our servers.</p>
 
-    <h2 id="website">9. The NiBi Games website</h2>
+    <h2 id="website">10. The NiBi Games website</h2>
     <p>The NiBi Games website (gamesnibi.github.io) is hosted by GitHub Pages. It sets no cookies and has no analytics or ads. Like any web host, GitHub may
       record technical information such as your IP address in server logs for security and reliability; see the
       <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Privacy Statement</a>.</p>
 
-    <h2 id="changes">10. Changes to this policy</h2>
+    <h2 id="changes">11. Changes to this policy</h2>
     <p>We may add features in future updates (for example online leaderboards, clubs, community events, advertising or in-app
       purchases). If we do, we will update this policy <strong>before</strong> those features are released, explain exactly what
       information is used and why, and change the "Last updated" date above. Where the law requires it, we will ask for your consent first.</p>
+    <p>When this policy changes we put a short note at the top saying what changed, and the game mentions it the first time you open it after an update.</p>
+    <p><strong>Change history:</strong> October 27, 2026 (Pond Reels 1.3): reminders, the rotate button, new things in the save,
+      "coming soon" shop buttons, and how the upcoming optional ads and purchases will work (section 5). The policy first took effect on October 24, 2026.</p>
 
-    <h2 id="contact">11. Contact us</h2>
+    <h2 id="contact">12. Contact us</h2>
     <p>Questions or requests about privacy? Email <a href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a>.<br>
       NiBi Games · Canada</p>
   </article>
