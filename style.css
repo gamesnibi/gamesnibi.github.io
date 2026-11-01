@@ -73,7 +73,8 @@ section{padding:96px 0;border-top:1px solid var(--line)}
 .game-body ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .game-body li{display:flex;gap:12px;color:var(--text);font-size:16px}
 .game-body li::before{content:"";flex:none;width:6px;height:6px;margin-top:10px;border-radius:50%;background:var(--accent)}
-.links{display:flex;gap:20px;flex-wrap:wrap;font:500 15px var(--sans);margin-top:20px}
+/* system font here: at 15px, Inter's i-dot runs into the stem on Windows ("Privacy policy" read as "Prlvacy pollcy") */
+.links{display:flex;gap:20px;flex-wrap:wrap;font:500 15px -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;margin-top:20px}
 @media (max-width:720px){.game-body{grid-template-columns:1fr;gap:24px;padding:24px}}
 .more{margin-top:24px;text-align:center;color:var(--faint);font-size:15px}
 
