@@ -22,7 +22,7 @@
   <article class="legal">
     <div class="eyebrow">Lockin-Inator · NiBi Games</div>
     <h1>Privacy Policy</h1>
-    <p class="meta">Effective date: October 27, 2026 · Last updated: October 28, 2026 (internet access explained)</p>
+    <p class="meta">Effective date: October 27, 2026 · Last updated: November 1, 2026 (the Shield in version 2.2.0)</p>
 
     <p>This privacy policy explains how <strong>Lockin-Inator</strong> (the "app"), made by <strong>NiBi Games</strong>
       ("we", "us"), handles information. It applies to the Lockin-Inator app for Android.</p>
@@ -69,20 +69,43 @@
     <h2 id="shield">2. The Shield and the Accessibility Service</h2>
     <p>The Shield is Lockin-Inator's blocker. It uses Android's Accessibility Service, which lets an app see what's on screen
       inside other apps. Lockin-Inator only turns it on after you read and agree to an explanation in the app, and after you switch
-      it on yourself in your phone's Accessibility settings.</p>
+      it on yourself in your phone's Accessibility settings. Android only lets it see the apps named below, and it gets nothing from
+      any other app.</p>
     <table>
       <tr><th>What it looks at</th><th>Why</th></tr>
-      <tr><td>What's on screen inside Instagram, YouTube and Facebook (for example, which tab or screen you're on, and whether a reel
-        in a chat was sent to you or by you)</td><td>To recognise Reels and Shorts screens and close them, and to keep Instagram on its
-        Messages tab if you choose that setting</td></tr>
-      <tr><td>Which app is open, during a study session only, for TikTok, Snapchat, Reddit, X, Pinterest, Twitch and Netflix (as well
-        as the apps above)</td><td>To send you back to Lockin-Inator while your study timer is running</td></tr>
+      <tr><td>What's on screen inside Instagram, YouTube and Facebook (for example, which tab or screen you're on)</td><td>To recognise
+        Reels and Shorts screens and close them, and to keep Instagram on its Messages tab if you choose that setting</td></tr>
+      <tr><td>How you scroll in TikTok, and the layout of the screen while you scroll (more below)</td><td>To notice when you swipe to
+        the next video in TikTok's full-screen feed, and take you out of the feed</td></tr>
+      <tr><td>Which app is open, during a study session only, for all the apps above plus Facebook Lite, Snapchat, Reddit, X,
+        Pinterest, Twitch, Netflix and YouTube for Android TV</td><td>To send you back to Lockin-Inator while your study timer is
+        running</td></tr>
     </table>
+    <p><strong>In Instagram</strong>, a reel you open from a chat is recognised by the chat's reply bar being on screen. The Shield
+      finds that bar by Instagram's internal name for it, never by what's written in it. While a reel is open, the Shield also reads
+      the name of the account that posted it, only to notice when you've moved on to a different person's reel, so that swiping to
+      the next reel takes you back to the chat. That name is only held in memory while the reel is open, and it's never saved.</p>
+    <p><strong>In TikTok</strong>, the Shield only pays attention when you scroll. It then looks at:</p>
+    <ul>
+      <li>how far and which way you scrolled;</li>
+      <li>the size and position of the area being scrolled;</li>
+      <li>the app's own internal names for parts of its screen (names its developers chose, not anything you or anyone else wrote);</li>
+      <li>the labels of buttons such as Like, Comment, Share and Save, and where they are;</li>
+      <li>which tab is selected in the app's bottom bar;</li>
+      <li>whether a message or search box is showing, judged only by its placeholder text (such as "Search") and its label.</li>
+    </ul>
+    <p>In TikTok it <strong>never reads what you type</strong>, and it ignores captions, names and everything else people post. If you
+      swipe to the next video, it takes you out of the feed by opening TikTok's Inbox tab, going back, or going to your home screen,
+      and shows a short message saying so. Outside study sessions it only does this while you have Premium, "All day" is on in
+      Lockin-Inator's Settings, and the TikTok switch is on.</p>
+    <p><strong>In Facebook Lite, Snapchat, Reddit, X, Pinterest, Twitch, Netflix and YouTube for Android TV</strong>, the Shield only
+      acts during a study session. Outside a session it ignores these apps completely and reads nothing from them.</p>
     <p>All of this happens on your phone, as it happens. Lockin-Inator does <strong>not</strong> save, record or send anything the
       Shield sees, including your messages. The only thing it keeps is a count of how many times something was blocked, which is
       shown on the app's home screen.</p>
-    <p>The Shield acts only on the apps listed above. To close a Reels or Shorts screen it uses the same actions you could do yourself,
-      such as going back. It never changes your settings, posts, sends or buys anything, or interacts with other people.</p>
+    <p>The Shield acts only on the apps named above. To take you out of a Reels, Shorts or TikTok feed it uses the same actions you
+      could do yourself: going back, going to your home screen, or tapping TikTok's Inbox tab. It never changes your settings, posts,
+      sends or buys anything, or interacts with other people.</p>
 
     <h2 id="device">3. What the app saves on your phone</h2>
     <p>Lockin-Inator keeps a small settings file in its private storage on your phone:</p>
@@ -93,6 +116,7 @@
       <tr><td>How many times the Shield blocked something, by app</td><td>The counts on the home screen</td></tr>
       <tr><td>Whether you've agreed to the Shield's explanation</td><td>So the Shield only works after you agree</td></tr>
       <tr><td>Whether you own Premium (monthly or Lifetime)</td><td>So the app works offline</td></tr>
+      <tr><td>If you unlocked with an access code, a scrambled fingerprint of that code (never the code itself)</td><td>So that code can be retired later</td></tr>
     </table>
     <p>This information never leaves your phone through the app, and we cannot see it. The app also opts out of Android's backup, so
       none of it is copied to your Google account.</p>
@@ -101,12 +125,12 @@
     <table>
       <tr><th>Permission</th><th>Used for</th></tr>
       <tr><td>Accessibility Service (you switch it on in Settings)</td><td>The Shield, as described in section 2</td></tr>
-      <tr><td>Do Not Disturb access (<code>ACCESS_NOTIFICATION_POLICY</code>, you allow it in Settings)</td><td>Turning on Do Not Disturb
+      <tr><td>Do Not Disturb access (<code>ACCESS_<wbr>NOTIFICATION_<wbr>POLICY</code>, you allow it in Settings)</td><td>Turning on Do Not Disturb
         while you study and turning it back off when the timer ends. It uses your phone's own Do Not Disturb settings, so alarms and
         anyone you've allowed can still reach you.</td></tr>
-      <tr><td>Alarms &amp; reminders (<code>SCHEDULE_EXACT_ALARM</code>)</td><td>Ending your study session at the exact second the timer runs out</td></tr>
-      <tr><td>Google Play Billing (<code>com.android.vending.BILLING</code>)</td><td>Buying and restoring Premium through Google Play</td></tr>
-      <tr><td>Internet access (<code>INTERNET</code> and <code>ACCESS_NETWORK_STATE</code>)</td><td>Added by Google Play Billing (Google's code inside
+      <tr><td>Alarms &amp; reminders (<code>SCHEDULE_<wbr>EXACT_<wbr>ALARM</code>)</td><td>Ending your study session at the exact second the timer runs out</td></tr>
+      <tr><td>Google Play Billing (<code>com.android.<wbr>vending.<wbr>BILLING</code>)</td><td>Buying and restoring Premium through Google Play</td></tr>
+      <tr><td>Internet access (<code>INTERNET</code> and <code>ACCESS_<wbr>NETWORK_<wbr>STATE</code>)</td><td>Added by Google Play Billing (Google's code inside
         the app that handles purchases). Google's code may use it to send Google reports on how billing is working, such as errors.
         Lockin-Inator itself doesn't use the internet or send your information anywhere.</td></tr>
     </table>
