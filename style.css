@@ -137,6 +137,7 @@ html.js .tabs { display: flex; position: absolute; z-index: 5; right: 10px; top:
 html.js .cards { position: absolute; z-index: 4; left: max(16px, 3vw); bottom: 24px; width: min(460px, calc(100% - 96px)); max-height: calc(100% - var(--top) - 48px); margin: 0; display: block; }
 html.js .card { max-height: calc(100svh - var(--top) - 48px); overflow-y: auto; overscroll-behavior: contain; }
 html.js .card[hidden], html.js .hero[hidden] { display: none; }
+html.js:not(.tabs-ready) .card { display: none; }     /* until the tabs pick one, don't flash every card */
 html.js .gallery img { height: 220px; }
 
 /* ---------------------------------------------------------------- phones */
