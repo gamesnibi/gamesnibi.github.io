@@ -2,135 +2,110 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NiBi Games | Small games, made with care</title>
-<meta name="description" content="NiBi Games is a tiny indie studio in Canada making cozy games for phones. Our first game, Pond Reels, is coming soon to Google Play.">
+<meta name="description" content="NiBi Games is a tiny indie studio in Canada making cozy games for phones. Explore our islands: Pond Reels, coming soon to Google Play, and Lockin-Inator, our study timer made with Señor Orange.">
 <meta property="og:title" content="NiBi Games">
 <meta property="og:description" content="Small games, made with care. A tiny indie studio making cozy games for phones.">
 <meta property="og:image" content="https://gamesnibi.github.io/assets/og.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gamesnibi.github.io/">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="assets/favicon.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=8">
-<script>document.documentElement.classList.add('js')</script>
+<meta name="theme-color" content="#1a8cff">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/sniglet-800.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/nunito-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
-<header class="top" id="top">
-  <div class="wrap">
-    <a class="logo" href="./"><img src="assets/nibi-mark.png" alt="">NiBi <span>Games</span></a>
-    <nav><a href="#beta" class="nav-beta">Beta</a><a href="#games">Games</a><a href="#about" class="hide-sm">About</a><a href="#contact">Contact</a></nav>
-  </div>
+<a class="skip" href="#games">Skip to the games</a>
+
+<header class="topbar">
+  <a class="brand" href="./"><img src="assets/brand/nibi-logo.webp" alt="NiBi Games" width="1200" height="641"></a>
+  <nav class="topnav" aria-label="Main">
+    <a href="#games">Games</a><a href="#beta">Beta</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <main>
-  <div class="wrap hero">
-    <div class="hero-spacer"></div>
-    <a class="beta-pill" href="#beta"><b></b>Lockin-Inator beta: testers wanted <span aria-hidden="true">→</span></a>
-    <img src="assets/nibi-mark.png" alt="" width="56" height="56" style="border-radius:14px">
-    <div class="eyebrow" style="margin-top:22px">A tiny indie studio from Canada</div>
-    <h1>Small games, made with care.</h1>
-    <p>Hi, we're NiBi! We make small, cozy phone games, the kind we'd actually want to play on the bus home or curled up before bed.</p>
-    <div class="actions">
-      <a class="btn primary" href="#games">See our games</a>
-      <a class="btn" href="mailto:gamesnibi@gmail.com">Get in touch</a>
-    </div>
-    <a class="scroll-cue" href="#games" aria-label="Scroll to our games"><i></i>Scroll</a>
-  </div>
+  <section id="stage" class="stage" aria-label="The NiBi Games islands">
+    <canvas id="sea" aria-hidden="true"></canvas>
+    <img id="poster" class="poster" alt="" width="1600" height="900" hidden>
 
-  <section id="beta" class="beta">
-    <div class="wrap beta-grid">
-      <div class="beta-copy reveal">
-        <div class="beta-eyebrow"><b></b>Lockin-Inator beta · Limited spots</div>
-        <h2>Be one of the first to <em>lock in</em>.</h2>
-        <p class="beta-lead">We're looking for Android beta testers for Lockin-Inator, our study timer that locks your phone, with a Shield that closes Reels and Shorts. Test it for two weeks and get a <strong>free Lifetime unlock</strong> when it launches.</p>
-        <ol class="beta-steps">
-          <li>
-            <span class="n">1</span>
-            <div>
-              <h3>Ask to join the beta group</h3>
-              <p>Sign in with the Google account that's on your Android phone, then tap <em>Ask to join group</em>. That's how Google Play knows it's you.</p>
-              <a class="btn beta-btn" href="https://groups.google.com/g/lockin-inator-beta" target="_blank" rel="noopener">Join the beta group</a>
-            </div>
-          </li>
-          <li>
-            <span class="n">2</span>
-            <div>
-              <h3>Once we approve you, opt in on Google Play</h3>
-              <p>We pick testers as spots open up and email you when you're in. Then tap <em>Become a tester</em> and install Lockin-Inator from Google Play.</p>
-              <a class="btn beta-btn ghost" href="https://play.google.com/apps/testing/com.lockininator.app" target="_blank" rel="noopener">Opt in on Google Play</a>
-            </div>
-          </li>
-          <li>
-            <span class="n">3</span>
-            <div>
-              <h3>Unlock it and tell us what you think</h3>
-              <p>We'll send you an access code that unlocks everything. Keep the app installed for at least 14 days and send feedback to <a href="mailto:gamesnibi@gmail.com?subject=Lockin-Inator%20beta">gamesnibi@gmail.com</a>.</p>
-            </div>
-          </li>
-        </ol>
-        <p class="beta-fine">Android only, ages 13 and up. Asking to join shares your Google account email with us; we only use it to run the beta. See the <a href="lockin-inator-privacy.html#beta">privacy policy</a>.</p>
-      </div>
-      <div class="beta-art reveal" aria-hidden="true">
-        <div class="beta-glow"></div>
-        <img src="assets/lockin-beta-phone.webp" alt="" width="480" height="987" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <section id="games">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div><div class="eyebrow">Games &amp; apps</div><h2>What we're working on</h2></div>
-      </div>
-
-      <article class="game reveal">
-        <div class="game-top">
-          <img src="assets/icon.png" alt="Pond Reels icon" width="96" height="96">
-          <div>
-            <h3>Pond Reels</h3>
-            <p>A cozy fishing game about a quiet dock, a brass reel and lakes full of fish.</p>
-          </div>
-          <span class="tag"><b></b>Coming soon to Android</span>
+    <div id="panel-overview" class="hero" role="tabpanel" aria-labelledby="tab-overview">
+      <img class="hero-logo" src="assets/brand/nibi-logo.webp" alt="" width="1200" height="641">
+      <div class="hero-card">
+        <h1>Small games, made with care.</h1>
+        <p>Hi, we're NiBi! We make small, cozy phone games, the kind we'd actually want to play on the bus home or curled up before bed.</p>
+        <div class="actions">
+          <a class="btn primary" href="#games">See the islands</a>
+          <a class="btn" href="#beta">Lockin-Inator beta</a>
         </div>
+      </div>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="Islands" aria-orientation="vertical">
+      <button class="tab" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-view="overview">
+        <img src="assets/stills/thumb-overview.webp" alt="" width="96" height="96"><span class="tab-text">All islands</span>
+      </button>
+      <button class="tab" role="tab" id="tab-pondreels" aria-controls="card-pondreels" aria-selected="false" data-view="pondreels">
+        <img src="assets/brand/pondreels-icon.webp" alt="" width="128" height="128"><span class="tab-text">Pond Reels<small>Coming soon to Android</small></span>
+      </button>
+      <button class="tab" role="tab" id="tab-lockin" aria-controls="card-lockin" aria-selected="false" data-view="lockin">
+        <img src="assets/brand/lockin-icon.webp" alt="" width="128" height="128"><span class="tab-text">Lockin-Inator<small>With Señor Orange, in beta</small></span>
+      </button>
+      <button class="tab" role="tab" id="tab-nibi" aria-controls="card-nibi" aria-selected="false" data-view="nibi">
+        <img src="assets/brand/icon-192.png" alt="" width="192" height="192"><span class="tab-text">NiBi HQ<small>About us and contact</small></span>
+      </button>
+      <button class="tab" role="tab" id="tab-soon" aria-controls="card-soon" aria-selected="false" data-view="soon">
+        <img src="assets/stills/thumb-soon.webp" alt="" width="96" height="96"><span class="tab-text">More on the way</span>
+      </button>
+    </nav>
+
+    <div id="cards" class="cards">
+      <h2 id="games" class="visually-hidden">Our games</h2>
+
+      <article id="card-pondreels" class="card card-pondreels" role="tabpanel" aria-labelledby="tab-pondreels">
+        <header class="card-head">
+          <img src="assets/brand/pondreels-icon.webp" alt="Pond Reels icon" width="128" height="128">
+          <div>
+            <h2>Pond Reels</h2>
+            <p class="tagline">A cozy fishing game about a quiet dock, a brass reel and lakes full of fish.</p>
+          </div>
+        </header>
+        <span class="tag">Coming soon to Android</span>
         <div class="gallery" aria-label="Pond Reels screenshots">
-          <img src="assets/shot-pond.jpg" alt="The dock at Willow Pond with snowy mountains and a radio on a crate" loading="lazy" width="540" height="1170">
-          <img src="assets/shot-reel.jpg" alt="Reeling in a fish with the brass wheel and tension gauge" loading="lazy" width="540" height="1170">
-          <img src="assets/shot-shop.jpg" alt="Barnaby Bramble behind the counter of his tackle shop" loading="lazy" width="540" height="1170">
-          <img src="assets/shot-lakes.jpg" alt="The map, where you pick which lake to fish today" loading="lazy" width="540" height="1170">
-          <div class="fish-slide" role="img" aria-label="Every fish in the game swimming past under a wooden sign that says Reel Them All!">
-            <div class="swim"></div>
-            <div class="sign">Reel Them All!</div>
-          </div>
+          <img src="assets/shot-pond.webp" alt="The dock at Willow Pond with snowy mountains and a radio on a crate" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-reel.webp" alt="Reeling in a fish with the brass wheel and tension gauge" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-shop.webp" alt="Barnaby Bramble behind the counter of his tackle shop" loading="lazy" width="540" height="1170">
+          <img src="assets/shot-lakes.webp" alt="The map, where you pick which lake to fish today" loading="lazy" width="540" height="1170">
         </div>
-        <div class="game-body">
-          <div>
-            <p>Cast from a sleepy dock, turn the brass reel and see what's biting. Every fish fights in its own way, every lake has its own songs for the radio to find or buy with coins, and something big lives out in the deep water.</p>
-            <p>Pop into Barnaby Bramble's tackle shop to upgrade your gear and make the place your own, save up Angler Club tickets to open new lakes, and tune the dock radio to your favourite station.</p>
-            <p>We've been building it one fish at a time, and we honestly can't wait for you to cast your first line.</p>
-            <a class="notice-pill" href="privacy.html#updated"><b>Privacy policy updated</b> Nov 1, 2026 · see what changed</a>
-            <div class="links"><a href="privacy.html">Privacy policy</a><a href="mailto:gamesnibi@gmail.com?subject=Pond%20Reels">Feedback</a></div>
-          </div>
-          <ul>
-            <li>Fish of every shape and size, from tiny minnows to real monsters</li>
-            <li>A brass reel with real haptic feedback</li>
-            <li>Legendary fish and bosses with tricks of their own</li>
-            <li>A dock radio with songs for every lake to find or buy with coins</li>
-            <li>Plays offline. No accounts, no tracking.</li>
-            <li>Optional reminders from Bramble, scheduled on your phone</li>
-          </ul>
-        </div>
+        <p>Cast from a sleepy dock, turn the brass reel and see what's biting. Every fish fights in its own way, every lake has its own songs for the radio to find or buy with coins, and something big lives out in the deep water.</p>
+        <p>Pop into Barnaby Bramble's tackle shop to upgrade your gear and make the place your own, save up Angler Club tickets to open new lakes, and tune the dock radio to your favourite station.</p>
+        <p>We've been building it one fish at a time, and we honestly can't wait for you to cast your first line.</p>
+        <ul class="features">
+          <li>Fish of every shape and size, from tiny minnows to real monsters</li>
+          <li>A brass reel with real haptic feedback</li>
+          <li>Legendary fish and bosses with tricks of their own</li>
+          <li>A dock radio with songs for every lake to find or buy with coins</li>
+          <li>Plays offline. No accounts, no tracking.</li>
+          <li>Optional reminders from Bramble, scheduled on your phone</li>
+        </ul>
+        <a class="notice-pill" href="privacy.html#updated"><b>Privacy policy updated</b> Nov 1, 2026, see what changed</a>
+        <p class="links"><a href="privacy.html">Privacy policy</a><a href="mailto:gamesnibi@gmail.com?subject=Pond%20Reels">Feedback</a></p>
       </article>
-      <article class="game reveal">
-        <div class="game-top">
-          <img src="assets/lockin-icon.png" alt="Lockin-Inator icon" width="96" height="96">
+
+      <article id="card-lockin" class="card card-lockin" role="tabpanel" aria-labelledby="tab-lockin">
+        <img class="lockup" src="assets/brand/senor-orange-lockup.webp" alt="NiBi Games and Señor Orange" width="800" height="272">
+        <header class="card-head">
+          <img src="assets/brand/lockin-icon.webp" alt="Lockin-Inator icon" width="128" height="128">
           <div>
-            <h3>Lockin-Inator</h3>
-            <p>A study timer that locks your phone down, plus a shield against endless short videos.</p>
+            <h2>Lockin<span class="dash">-</span>Inator</h2>
+            <p class="tagline">A study timer that locks your phone down, plus a shield against endless short videos.</p>
           </div>
-          <a class="tag tag-beta" href="#beta"><b></b>Beta testers wanted</a>
-        </div>
+        </header>
+        <a class="tag tag-beta" href="#beta">Beta testers wanted</a>
         <div class="gallery gallery-9x16" aria-label="Lockin-Inator screenshots">
           <img src="assets/lockin/1-home.webp" alt="The home screen: a study dial set to 25 minutes and a Lock in button" loading="lazy" width="540" height="960">
           <img src="assets/lockin/2-locked.webp" alt="Locked in: the timer counts down and the phone stays on it" loading="lazy" width="540" height="960">
@@ -138,83 +113,69 @@
           <img src="assets/lockin/4-urge-breaker.webp" alt="The Urge-Breaker: a 60-second countdown before you can switch a block off" loading="lazy" width="540" height="960">
           <img src="assets/lockin/5-themes.webp" alt="Six colour themes to pick from, from Violet to Mono" loading="lazy" width="540" height="960">
         </div>
-        <div class="game-body">
-          <div>
-            <p>Set a timer and Lockin-Inator pins your phone to it, turns on Do Not Disturb, and nudges you right back if you wander off into a distracting app. When the timer's done, everything unlocks on its own.</p>
-            <p>The rest of the time, the Shield quietly closes those endless short-video feeds while your messages and regular videos keep working. Want to turn it off? You'll have to sit through a 60-second Urge-Breaker first.</p>
-            <p>We made it for anyone who's ever picked up their phone to check one thing and looked up an hour later.</p>
-            <a class="notice-pill" href="lockin-inator-privacy.html#updated"><b>Privacy policy updated</b> Nov 1, 2026 · see what changed</a>
-            <div class="links"><a href="lockin-inator-privacy.html">Privacy policy</a><a href="mailto:gamesnibi@gmail.com?subject=Lockin-Inator">Feedback</a></div>
-          </div>
-          <ul>
-            <li>Study Mode keeps your phone locked until the timer ends</li>
-            <li>Closes endless short-video feeds</li>
-            <li>Messages and regular videos keep working</li>
-            <li>Silences notifications while you study (alarms still ring)</li>
-            <li>A 60-second Urge-Breaker before you can turn protection off</li>
-            <li>Free 7-day trial, then $1 a month or $20 for life</li>
-          </ul>
-        </div>
+        <p>Set a timer and Lockin-Inator pins your phone to it, turns on Do Not Disturb, and nudges you right back if you wander off into a distracting app. When the timer's done, everything unlocks on its own.</p>
+        <p>The rest of the time, the Shield quietly closes those endless short-video feeds while your messages and regular videos keep working. Want to turn it off? You'll have to sit through a 60-second Urge-Breaker first.</p>
+        <p>We made it for anyone who's ever picked up their phone to check one thing and looked up an hour later.</p>
+        <ul class="features">
+          <li>Study Mode keeps your phone locked until the timer ends</li>
+          <li>Closes endless short-video feeds</li>
+          <li>Messages and regular videos keep working</li>
+          <li>Silences notifications while you study (alarms still ring)</li>
+          <li>A 60-second Urge-Breaker before you can turn protection off</li>
+          <li>Free 7-day trial, then $1 a month or $20 for life</li>
+        </ul>
+        <a class="btn btn-so" href="#beta">Join the beta</a>
+        <a class="notice-pill" href="lockin-inator-privacy.html#updated"><b>Privacy policy updated</b> Nov 1, 2026, see what changed</a>
+        <p class="links"><a href="lockin-inator-privacy.html">Privacy policy</a><a href="mailto:gamesnibi@gmail.com?subject=Lockin-Inator">Feedback</a></p>
       </article>
-      <p class="more reveal">More on the way.</p>
-    </div>
-  </section>
 
-  <section id="about">
-    <div class="wrap about">
-      <div class="reveal">
-        <div class="eyebrow">About</div>
-        <h2 style="font-size:clamp(32px,4.6vw,48px);margin-top:12px">A tiny studio with big ideas.</h2>
-      </div>
-      <div class="reveal">
+      <article id="card-nibi" class="card card-nibi" role="tabpanel" aria-labelledby="tab-nibi">
+        <h2 id="about">A tiny studio with big ideas.</h2>
         <p>We're NiBi Games, a small independent studio in Canada. We think phone games can be calm and beautiful, and we'd rather make something you look forward to opening than something that nags you to come back.</p>
         <p>Every game gets played to pieces by our friends and family before it ships, and we really do read every message you send us.</p>
-      </div>
+        <h2 id="contact" class="contact-head">Say hello.</h2>
+        <p>Found a bug? Got an idea? Just want to say hi? Send us a note. It comes straight to us, and we usually write back within a few days.</p>
+        <a class="btn primary" href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a>
+      </article>
+
+      <article id="card-soon" class="card card-soon" role="tabpanel" aria-labelledby="tab-soon">
+        <h2>More on the way.</h2>
+      </article>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap about">
-      <div class="reveal">
-        <div class="eyebrow">Contact</div>
-        <h2 style="font-size:clamp(32px,4.6vw,48px);margin-top:12px">Say hello.</h2>
-      </div>
-      <div class="contact-card reveal">
-        <h3>Found a bug? Got an idea? Just want to say hi?</h3>
-        <p>Send us a note. It comes straight to us, and we usually write back within a few days.</p>
-        <a class="btn primary" href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a>
-      </div>
+  <section id="beta" class="beta">
+    <div class="beta-wrap">
+      <img class="lockup" src="assets/brand/senor-orange-lockup.webp" alt="NiBi Games and Señor Orange" width="800" height="272" loading="lazy">
+      <p class="beta-kicker">Lockin-Inator beta, limited spots</p>
+      <h2>Be one of the first to <em>lock in</em>.</h2>
+      <p class="beta-lead">We're looking for Android beta testers for Lockin-Inator, our study timer that locks your phone, with a Shield that closes endless short-video feeds. Test it for two weeks and get a <strong>free Lifetime unlock</strong> when it launches.</p>
+      <ol class="beta-steps">
+        <li>
+          <h3>Ask to join the beta group</h3>
+          <p>Sign in with the Google account that's on your Android phone, then tap <em>Ask to join group</em>. That's how Google Play knows it's you.</p>
+          <a class="btn btn-so" href="https://groups.google.com/g/lockin-inator-beta" target="_blank" rel="noopener">Join the beta group</a>
+        </li>
+        <li>
+          <h3>Once we approve you, opt in on Google Play</h3>
+          <p>We pick testers as spots open up and email you when you're in. Then tap <em>Become a tester</em> and install Lockin-Inator from Google Play.</p>
+          <a class="btn btn-so ghost" href="https://play.google.com/apps/testing/com.lockininator.app" target="_blank" rel="noopener">Opt in on Google Play</a>
+        </li>
+        <li>
+          <h3>Unlock it and tell us what you think</h3>
+          <p>We'll send you an access code that unlocks everything. Keep the app installed for at least 14 days and send feedback to <a href="mailto:gamesnibi@gmail.com?subject=Lockin-Inator%20beta">gamesnibi@gmail.com</a>.</p>
+        </li>
+      </ol>
+      <p class="beta-fine">Android only, ages 13 and up. Asking to join shares your Google account email with us; we only use it to run the beta. See the <a href="lockin-inator-privacy.html#beta">privacy policy</a>.</p>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div>© 2026 NiBi Games</div>
-    <nav><a href="privacy.html">Privacy</a><a href="mailto:gamesnibi@gmail.com">Contact</a></nav>
+<footer class="footer">
+  <div class="footer-wrap">
+    <p>© 2026 NiBi Games</p>
+    <nav aria-label="Footer"><a href="mailto:gamesnibi@gmail.com">gamesnibi@gmail.com</a><a href="privacy.html">Pond Reels privacy</a><a href="lockin-inator-privacy.html">Lockin-Inator privacy</a></nav>
   </div>
 </footer>
-
-<script>
-  // header hairline once you scroll; fade sections in as they arrive.
-  // Wrapped in a function on purpose: a top-level `const top` clashes with the browser's built-in window.top, which
-  // stopped this script and left every section below the hero invisible. If anything here fails, show everything.
-  (function () {
-    var header = document.getElementById('top');
-    var reveals = document.querySelectorAll('.reveal');
-    function showAll() { for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('in'); }
-    try {
-      var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 8); };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-      if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
-        for (var i = 0; i < reveals.length; i++) io.observe(reveals[i]);
-      } else showAll();
-    } catch (err) { showAll(); }
-  })();
-</script>
 </body>
 </html>
