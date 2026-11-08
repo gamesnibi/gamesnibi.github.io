@@ -1,5 +1,6 @@
 // Boot: switch the page to its JavaScript layout, wire the island tabs, and let the 3D sea (and anything else)
-// listen for island changes through onIslandChange(). The sea loads after the page has painted.
+// listen for island changes through onIslandChange(). After the page has painted, either the live 3D sea loads or,
+// where it can't run well, still pictures of each view take its place (chooseMode).
 import { initTabs } from './tabs.js';
 import { createBubble } from './bubble.js';
 
@@ -63,18 +64,74 @@ async function startSea() {
     // tapping Bramble on the sea greets him (taps on the cards, tabs and buttons are theirs)
     stage.addEventListener('click', (e) => {
       if (e.target.closest('a, button, .card, .hero-card, .tabs, .bubble')) return;
-      if (sea.tap(...toSea(e))) greet();
+      if (sea && sea.tap(...toSea(e))) greet();
     });
     // the bubble follows his head while it shows
-    sea.onFrame(() => { if (bubbleEl.classList.contains('show')) { const p = sea.brambleScreen(); if (p) placeBubble(p[0], p[1]); } });
+    sea.onFrame(() => { if (sea && bubbleEl.classList.contains('show')) { const p = sea.brambleScreen(); if (p) placeBubble(p[0], p[1]); } });
+    // if the graphics chip resets or drops the page, the still pictures take over (and stay)
+    sea.onLost(() => { sea = null; goStill(); });
     document.documentElement.classList.add('live');
     sea.start();
     if (test) window.__sea = { state: sea.state, view: sea.view, heightAt: sea.heightAt, project: sea.project };
     return sea;
   } catch (err) {
     console.warn('NiBi: the 3D sea could not start', err);
+    sea = null; goStill();
   }
 }
 
-if (document.readyState === 'complete') setTimeout(startSea, 0);
-else addEventListener('load', () => setTimeout(startSea, 0), { once: true });
+// ---------------------------------------------------------------- live 3D or still pictures
+// Still pictures for browsers without WebGL2, devices with 2 GB of memory or less, Save-Data, and reduce motion.
+// (?mode=live or ?mode=still picks one, for trying them out.)
+export function chooseMode({ webgl2 = hasWebGL2, memory = navigator.deviceMemory, saveData = navigator.connection && navigator.connection.saveData, reduced = reducedMotion, forced = params.get('mode') } = {}) {
+  if (forced === 'live' || forced === 'still') return forced;
+  if ((memory && memory <= 2) || saveData || reduced) return 'still';
+  return (typeof webgl2 === 'function' ? webgl2() : webgl2) ? 'live' : 'still';
+}
+function hasWebGL2() {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2');
+    if (!gl) return false;
+    const lose = gl.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();   // (only asking)
+    return true;
+  } catch { return false; }
+}
+
+const STILL_ALT = {
+  pondreels: "Pond Reels island: jungle hills wrapped round a calm turquoise bay, where Barnaby Bramble sits in his rowboat.",
+  lockin: "Señor Orange's island: a long white beach with palms, tall rock towers and an orange beach bar.",
+  nibi: 'NiBi HQ: a big jungle mountain island with rock spires and a sandy cove.',
+  soon: 'A little sandbar with a few palms, waiting for the next game.',
+};
+// a view's still picture (wide, or tall on portrait screens), made the first time it's needed
+// (a picture fades in once its image has loaded, so a slow one never shows as a blank)
+function whenLoaded(p) {
+  const img = p.querySelector('img'), on = () => p.classList.add('ready');
+  if (img.complete && img.naturalWidth) on(); else img.addEventListener('load', on, { once: true });
+}
+function stillPicture(id) {
+  let p = stage.querySelector('.still[data-view="' + id + '"]');
+  if (p) { whenLoaded(p); return p; }
+  if (!STILL_ALT[id]) return null;
+  p = document.createElement('picture');
+  p.className = 'still'; p.dataset.view = id;
+  p.innerHTML = '<source media="(max-aspect-ratio: 1/1)" srcset="assets/stills/' + id + '-tall.webp" width="900" height="1600">'
+    + '<img src="assets/stills/' + id + '-wide.webp" width="1600" height="900" decoding="async" alt="">';
+  p.querySelector('img').alt = STILL_ALT[id];
+  stage.querySelector('.still:last-of-type').after(p);
+  whenLoaded(p);
+  return p;
+}
+let still = false;
+function goStill() {
+  if (still) return;
+  still = true;
+  const html = document.documentElement;
+  html.classList.remove('live'); html.classList.add('still');
+  stillPicture(tabs.current() || 'overview');
+  onIslandChange((id) => stillPicture(id));
+}
+
+function start() { if (chooseMode() === 'live') startSea(); else goStill(); }
+if (document.readyState === 'complete') setTimeout(start, 0);
+else addEventListener('load', () => setTimeout(start, 0), { once: true });

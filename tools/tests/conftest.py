@@ -20,11 +20,15 @@ def site():
     srv.shutdown()
 
 @pytest.fixture(scope='session')
-def browser():
+def pw():
     with sync_playwright() as p:
-        b = p.chromium.launch(args=['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'])
-        yield b
-        b.close()
+        yield p
+
+@pytest.fixture(scope='session')
+def browser(pw):
+    b = pw.chromium.launch(args=['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'])
+    yield b
+    b.close()
 
 # The live sea at a quarter render scale: the checks run in a software renderer, where a full-size frame takes seconds
 # and every click waits for frames. The sea still loads, starts and draws.

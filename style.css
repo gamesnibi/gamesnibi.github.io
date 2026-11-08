@@ -42,8 +42,18 @@ p { margin: .6em 0; }
 /* ---------------------------------------------------------------- the stage: 3D sea, hero, tabs, cards */
 .stage { position: relative; min-height: 100vh; min-height: 100svh; padding: calc(var(--top) + 24px) 16px 32px;
   background: radial-gradient(120% 90% at 50% 40%, #6fdcf0 0%, var(--lagoon) 38%, #0f8fc4 75%, #0b6fa8 100%); }
-#sea, .poster { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.poster { object-fit: cover; }
+#sea, .still { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.still img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* still pictures of each view: the overview shows at first paint (under the 3D, which fades in over it); in still
+   mode the tabs crossfade between them */
+.still { opacity: 0; transition: opacity .6s ease; }
+html:not(.still) .still[data-view="overview"] { opacity: 1; }
+html.still .stage[data-view="overview"] .still.ready[data-view="overview"],
+html.still .stage[data-view="pondreels"] .still.ready[data-view="pondreels"],
+html.still .stage[data-view="lockin"] .still.ready[data-view="lockin"],
+html.still .stage[data-view="nibi"] .still.ready[data-view="nibi"],
+html.still .stage[data-view="soon"] .still.ready[data-view="soon"] { opacity: 1; }
+html.still #sea { display: none; }
 #sea { pointer-events: none; opacity: 0; transition: opacity .9s ease; }
 html.live #sea { opacity: 1; }
 

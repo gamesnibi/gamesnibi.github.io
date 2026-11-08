@@ -16,7 +16,7 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/sniglet-800.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/nunito-var.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 <script>document.documentElement.classList.add('js')</script>
 <script type="module" src="assets/js/main.js"></script>
 </head>
@@ -32,8 +32,11 @@
 
 <main>
   <section id="stage" class="stage" aria-label="The NiBi Games islands">
+    <picture class="still" data-view="overview">
+      <source media="(max-aspect-ratio: 1/1)" srcset="assets/stills/overview-tall.webp" width="900" height="1600">
+      <img id="poster" class="poster" src="assets/stills/overview-wide.webp" alt="The NiBi islands from above: a horseshoe of jungle hills round a turquoise bay, a long beach island with an orange beach bar, a big mountain island and a little sandbar, with more islands in the mist." width="1600" height="900" fetchpriority="high">
+    </picture>
     <canvas id="sea" aria-hidden="true"></canvas>
-    <img id="poster" class="poster" alt="" width="1600" height="900" hidden>
 
     <div id="panel-overview" class="hero" role="tabpanel" aria-labelledby="tab-overview">
       <img class="hero-logo" src="assets/brand/nibi-logo.webp" alt="" width="1200" height="641">

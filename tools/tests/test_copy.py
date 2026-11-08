@@ -11,3 +11,12 @@ def test_rules_catch_problems():
 
 def test_home_page_copy():
     assert check_copy(open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()) == []
+
+def test_still_picture_alt_text():
+    import re
+    src = open(os.path.join(ROOT, 'assets', 'js', 'main.js'), encoding='utf-8').read()
+    block = re.search(r'const STILL_ALT = \{(.*?)\};', src, re.S).group(1)
+    alts = re.findall(r":\s*([\"'])(.*?)\1,", block)
+    assert len(alts) == 4
+    for _, text in alts:
+        assert check_copy('<p>' + text + '</p>') == [], text
