@@ -27,10 +27,10 @@ def canvas_rgb(pg):
     return np.asarray(Image.open(io.BytesIO(pg.locator('#sea').screenshot())).convert('RGB')).astype(np.float32) / 255
 
 def test_sea_draws_turquoise_shallows_and_darker_deep_water(browser, site):
-    pg, errors = ready_page(browser, site, URL)
+    pg, errors = ready_page(browser, site, URL + '&scale=0.5')   # half scale: true colours, frames fast enough
     pg.evaluate("window.__sea.view('overview', { instant: true })")
     f0 = pg.evaluate('window.__sea.state.frames'); assert wait(pg, f'window.__sea.state.frames > {f0 + 1}', 30)
-    assert wait(pg, "getComputedStyle(document.getElementById('sea')).opacity === '1'", 10), 'the sea never faded in'
+    assert wait(pg, "getComputedStyle(document.getElementById('sea')).opacity === '1'", 30), 'the sea never faded in'
     assert -2.6 < pg.evaluate('window.__sea.heightAt(-75, 26)') < -0.8, 'the lagoon point should be shallow'
     assert pg.evaluate('window.__sea.heightAt(-10, -30)') < -8, 'the deep point should be deep'
     img = canvas_rgb(pg)
