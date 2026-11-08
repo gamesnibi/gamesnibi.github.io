@@ -26,6 +26,17 @@ def browser():
         yield b
         b.close()
 
+# The live sea at a quarter render scale: the checks run in a software renderer, where a full-size frame takes seconds
+# and every click waits for frames. The sea still loads, starts and draws.
+LIGHT = 'test=1&q=low&scale=0.25'
+
+@pytest.fixture(autouse=True)
+def _close_pages(request):
+    """Close every page a test opened, even when it fails (a left-open page keeps its 3D sea running)."""
+    yield
+    if 'browser' in request.fixturenames:
+        for c in list(request.getfixturevalue('browser').contexts): c.close()
+
 def open_page(browser, url, width=1280, height=800, js=True, **ctx):
     """Open url in a fresh context; returns (page, errors) where errors collects console errors and page errors."""
     c = browser.new_context(viewport={'width': width, 'height': height}, java_script_enabled=js, **ctx)

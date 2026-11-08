@@ -1,5 +1,5 @@
 """Island tabs and cards (Playwright). Run: python3 -m pytest tools/tests/check_tabs.py -q"""
-from conftest import open_page
+from conftest import open_page, LIGHT
 
 TABS = ['overview', 'pondreels', 'lockin', 'nibi', 'soon']
 
@@ -7,7 +7,7 @@ def active_id(pg):
     return pg.evaluate("document.activeElement && document.activeElement.id")
 
 def test_arrow_keys_move_focus_and_enter_selects(browser, site):
-    pg, errors = open_page(browser, site + '/index.html')
+    pg, errors = open_page(browser, site + '/index.html?' + LIGHT)
     pg.focus('#tab-overview')
     pg.keyboard.press('ArrowDown'); assert active_id(pg) == 'tab-pondreels'
     pg.keyboard.press('ArrowUp'); assert active_id(pg) == 'tab-overview'
@@ -19,7 +19,7 @@ def test_arrow_keys_move_focus_and_enter_selects(browser, site):
     pg.context.close()
 
 def test_selecting_lockin_shows_only_its_card(browser, site):
-    pg, _ = open_page(browser, site + '/index.html')
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT)
     pg.click('#tab-lockin')
     assert pg.is_visible('#card-lockin')
     for other in ['card-pondreels', 'card-nibi', 'card-soon', 'panel-overview']:
@@ -32,7 +32,7 @@ def test_selecting_lockin_shows_only_its_card(browser, site):
     pg.context.close()
 
 def test_hover_slides_a_tab_open(browser, site):
-    pg, _ = open_page(browser, site + '/index.html')
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT)
     pg.hover('#tab-nibi'); pg.wait_for_timeout(450)
     assert pg.evaluate("document.querySelector('#tab-nibi').getBoundingClientRect().width") > 150
     for t in ['overview', 'pondreels', 'lockin', 'soon']:
@@ -40,7 +40,7 @@ def test_hover_slides_a_tab_open(browser, site):
     pg.context.close()
 
 def test_about_link_opens_nibi_hq(browser, site):
-    pg, _ = open_page(browser, site + '/index.html#about')
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT + '#about')
     pg.wait_for_timeout(300)
     assert pg.get_attribute('#tab-nibi', 'aria-selected') == 'true' and pg.is_visible('#card-nibi')
     pg.click('.topnav a[href="#games"]'); pg.wait_for_timeout(200)
@@ -48,7 +48,7 @@ def test_about_link_opens_nibi_hq(browser, site):
     pg.context.close()
 
 def test_poster_link_lands_on_beta_and_stays(browser, site):          # Review Focus 1
-    pg, errors = open_page(browser, site + '/index.html#beta', width=390, height=844)
+    pg, errors = open_page(browser, site + '/index.html?' + LIGHT + '#beta', width=390, height=844)
     last, still = -1, 0                                   # let the browser finish its jump to #beta
     while still < 5:
         pg.wait_for_timeout(100); y = pg.evaluate('scrollY'); still = still + 1 if y == last else 0; last = y
@@ -61,7 +61,7 @@ def test_poster_link_lands_on_beta_and_stays(browser, site):          # Review F
     pg.context.close()
 
 def test_phone_sheet_never_covers_tabs(browser, site):                 # Review Focus 5
-    pg, _ = open_page(browser, site + '/index.html', width=320, height=640)
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT, width=320, height=640)
     for t in ['pondreels', 'lockin', 'nibi', 'soon']:
         pg.click('#tab-' + t); pg.mouse.move(5, 5); pg.wait_for_timeout(350)
         for u in TABS:      # nothing sits on top of any tab: the element at its centre is the tab itself
@@ -74,7 +74,7 @@ def test_phone_sheet_never_covers_tabs(browser, site):                 # Review 
     pg.context.close()
 
 def test_every_tab_shows_a_focus_ring(browser, site):
-    pg, _ = open_page(browser, site + '/index.html')
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT)
     for _ in range(12):
         pg.keyboard.press('Tab')
         if (active_id(pg) or '').startswith('tab-'): break
