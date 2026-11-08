@@ -34,6 +34,7 @@ p { margin: .6em 0; }
 /* ---------------------------------------------------------------- top bar */
 .topbar { position: fixed; inset: 0 0 auto 0; z-index: 30; height: var(--top); display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); pointer-events: none; }
 .topbar > * { pointer-events: auto; }
+.topbar.solid { background: rgba(242, 251, 255, .94); box-shadow: 0 2px 14px rgba(4, 60, 110, .08); pointer-events: auto; }   /* over the policies' text */
 .brand img { display: block; height: 42px; width: auto; filter: drop-shadow(0 3px 8px rgba(11, 58, 110, .28)); }
 .topnav { display: flex; gap: 6px; }
 .topnav a { font-weight: 800; font-size: 15px; color: var(--ink); text-decoration: none; padding: 8px 14px; border-radius: 999px; background: rgba(255, 255, 255, .82); box-shadow: 0 4px 12px rgba(4, 60, 110, .12); }
@@ -152,6 +153,36 @@ html:not(.js) .btn-hi, html:not(.js) .bubble { display: none; }
 .footer p { margin: 0; }
 .footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .footer a { color: var(--ink); }
+
+/* ---------------------------------------------------------------- the privacy policies (their wording is untouched) */
+.legal { max-width: 760px; margin: 0 auto; padding: calc(var(--top) + 36px) 20px 72px; overflow-wrap: break-word; }
+.legal .eyebrow { font: 800 13px/1.3 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--deep); }
+.legal h1 { font: 800 clamp(34px, 6vw, 52px)/1.08 var(--display); margin: 12px 0 10px; }
+.legal .meta { color: var(--ink-soft); font-size: 15px; margin: 0 0 28px; }
+.legal h2 { font: 800 22px/1.25 var(--display); margin: 40px 0 10px; }
+.legal p, .legal li { color: #23476f; }
+.legal ul, .legal ol { padding-left: 22px; }
+.legal li { margin: 6px 0; }
+.legal .notice { background: #fff8db; border: 2px solid var(--sun); border-radius: var(--radius); padding: 18px 22px; margin: 8px 0 26px; }
+.legal .summary { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 22px; margin: 24px 0; }
+.legal .notice > strong, .legal .summary > strong { display: block; font: 800 18px/1.3 var(--display); color: var(--ink); margin-bottom: 4px; }
+.legal .notice p, .legal .notice ul, .legal .summary ul { margin: 6px 0; }
+.legal table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+.legal th, .legal td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #d6eaf7; min-width: 120px; }
+.legal th { background: var(--shallows); color: var(--ink); font-weight: 800; }
+.legal code { font-size: .92em; background: #e6f6ff; padding: 1px 6px; border-radius: 6px; overflow-wrap: anywhere; }
+.legal [id] { scroll-margin-top: calc(var(--top) + 16px); }
+body > footer:not(.footer) { background: var(--sky); padding: 28px 16px 40px; border-top: 2px solid var(--shallows); }
+body > footer:not(.footer) .wrap { max-width: 760px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; font-weight: 700; color: var(--ink-soft); }
+body > footer:not(.footer) nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+body > footer:not(.footer) a { color: var(--ink); }
+
+/* ---------------------------------------------------------------- 404: a tiny lonely islet */
+.lost { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: end center; padding: calc(var(--top) + 24px) 16px 9vh; }
+.lost-pic { position: absolute; inset: 0; }
+.lost-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lost-card { position: relative; max-width: 420px; text-align: center; background: var(--white); border-radius: 28px; box-shadow: var(--shadow); padding: 24px 28px; }
+.lost-card h1 { font: 800 clamp(30px, 6vw, 44px)/1.1 var(--display); margin: 0 0 16px; }
 
 /* ---------------------------------------------------------------- with JavaScript: one card at a time, over the sea */
 html.js .stage { height: 100vh; height: 100svh; min-height: 520px; padding: 0; overflow: hidden; }
