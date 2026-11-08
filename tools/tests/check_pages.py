@@ -29,6 +29,8 @@ def test_search_and_share_tags(name):
     if name == 'index.html':
         ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
         assert ld['@type'] == 'Organization' and ld['url'] == 'https://gamesnibi.github.io/'
+        # only the studio's name, website, logo and email (Josh, Nov 7): no address, phone, people or blurb
+        assert set(ld) - {'@context', '@type'} == {'name', 'url', 'logo', 'email'}, sorted(ld)
 
 def test_404_shows_the_little_islet_and_a_way_back(browser, site):
     pg, errors = open_page(browser, site + '/404.html')    # (GitHub Pages serves it for any missing address)
@@ -59,7 +61,8 @@ def test_robots_sitemap_and_credits():
     for u in ['https://gamesnibi.github.io/', 'https://gamesnibi.github.io/privacy.html', 'https://gamesnibi.github.io/lockin-inator-privacy.html']:
         assert f'<loc>{u}</loc>' in sm
     credits = src('CREDITS.md')
-    for word in ['three.js', 'MIT', 'Sniglet', 'Nunito', 'Archivo', 'SIL Open Font', 'Bonum', 'GUST', 'Bramble', 'Old Mossback', 'Pond Reels']:
+    for word in ['three.js', 'MIT', 'Sniglet', 'Nunito', 'Archivo', 'SIL Open Font', 'Bonum', 'GUST', 'Bramble', 'Old Mossback', 'Pond Reels',
+                 'tools/gen-textures.py', 'procedural', 'no AI']:
         assert word in credits, word
 
 def test_old_assets_are_gone():
@@ -68,3 +71,11 @@ def test_old_assets_are_gone():
            [f'assets/shot-{n}.jpg' for n in ['boss', 'buddies', 'lakes', 'oasis', 'pond', 'reel', 'shop']]
     left = [g for g in gone if os.path.exists(os.path.join(ROOT, g))]
     assert left == [], left
+
+def test_tab_thumbnails_are_small_webps():
+    html = src('index.html')
+    nav = html[html.index('<nav class="tabs"'):html.index('</nav>', html.index('<nav class="tabs"'))]
+    imgs = re.findall(r'<img src="([^"]+)"', nav)
+    assert len(imgs) == 5
+    for i in imgs:
+        assert i.endswith('.webp') and os.path.getsize(os.path.join(ROOT, i)) <= 8 * 1024, (i, os.path.getsize(os.path.join(ROOT, i)))
