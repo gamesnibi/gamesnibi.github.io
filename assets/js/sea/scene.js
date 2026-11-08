@@ -7,12 +7,14 @@ import { fbm, vnoise, rng, sstep, grove, CLEARINGS } from './world.js';
 import { createWater } from './water.js';
 import { FLIGHT, INTRO, INTRO_FROM, fit, lerpPose, applyPose } from './views.js';
 import { createBramble } from './bramble.js';
+import { createMossback } from './mossback.js';
 
 const BASE = new URL('../../3d/', import.meta.url);
 const MIST = [175, 300];
 const SUN = new THREE.Vector3(-0.5, 0.6, 0.48).normalize();
 const HORIZON = new THREE.Color('#cfe4ee');
 const BRAMBLE = { at: [-72, 0, 30], scale: 3, hit: 0.8 };   // in the Pond Reels bay; storybook size, so you can see him
+const MOSSBACK = [-70, 0, 24];                               // Old Mossback leaps in the same bay
 
 // fog measured outward from the middle of the archipelago (not from the camera), so the edges sink into the mist
 THREE.ShaderChunk.fog_vertex = `#ifdef USE_FOG
@@ -265,8 +267,10 @@ function buildClouds(count, detail) {
 // ------------------------------------------------------------------ the sea
 export async function createSea(canvas, { quality = 'high', reducedMotion = false, view: first = 'overview', pixelRatio = 0 } = {}) {
   const low = quality === 'low';
-  const [world, barModel, brambleModel, boatModel, T] = await Promise.all(
-    ['world.bin', 'models/bar.bin', 'models/bramble.bin', 'models/boat.bin'].map((f) => loadBin(new URL(f, BASE))).concat(loadTextures()));
+  const [world, barModel, brambleModel, boatModel, fishModel, T, fishTex] = await Promise.all(
+    ['world.bin', 'models/bar.bin', 'models/bramble.bin', 'models/boat.bin', 'models/mossback.bin'].map((f) => loadBin(new URL(f, BASE)))
+      .concat(loadTextures(), new THREE.TextureLoader().loadAsync(new URL('models/mossback.webp', BASE).href)));
+  fishTex.colorSpace = THREE.SRGBColorSpace;   // (uvs run up from the bottom, three.js's usual way)
   const G = heightGrid(world), VIEWS = world.meta.views;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -317,6 +321,9 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
   bramble.group.scale.setScalar(BRAMBLE.scale);
   { const c = VIEWS.pondreels.pos; bramble.group.rotation.y = Math.atan2(c[0] - BRAMBLE.at[0], c[2] - BRAMBLE.at[2]); }
   scene.add(bramble.group);
+  const fishFacing = [VIEWS.pondreels.pos[0] - MOSSBACK[0], VIEWS.pondreels.pos[2] - MOSSBACK[2]];
+  const mossback = createMossback(fishModel, fishTex, THREE, { reducedMotion, at: MOSSBACK, facing: fishFacing });
+  scene.add(mossback.group);
 
   // ---------------------------------------------------------------- camera, flights and the render loop
   const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 4000);
@@ -361,6 +368,7 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
       bramble.lookAt(ray.ray.at(camera.position.distanceTo(bramble.headPosition(hp)) * 0.5, look));
     } else bramble.lookAt(null);
     bramble.update(dt, time);
+    mossback.update(dt);
     state.brambleYaw = bramble.yaw; state.waving = bramble.waving;
     bramble.headPosition(hp).toArray(state.brambleHead);
     for (const cb of frameCbs) cb(dt, time);
