@@ -84,3 +84,36 @@ def test_every_tab_shows_a_focus_ring(browser, site):
         assert ring[0] != 'none' and ring[1] > 0, (active_id(pg), ring)
         pg.keyboard.press('ArrowDown')
     pg.context.close()
+
+import pytest
+
+@pytest.mark.parametrize('w,h', [(390, 844), (1280, 720), (320, 568)])
+@pytest.mark.parametrize('hash,view', [('#games', 'overview'), ('#about', 'nibi'), ('#contact', 'nibi')])
+def test_island_links_open_at_the_top_of_the_page(browser, site, hash, view, w, h):
+    # old links, the policies' top bar and a reload after the nav all arrive this way
+    pg, errors = open_page(browser, site + '/index.html?' + LIGHT + hash, width=w, height=h)
+    pg.wait_for_timeout(900)
+    assert pg.evaluate('scrollY') == 0, pg.evaluate('scrollY')
+    assert pg.evaluate("document.getElementById('stage').scrollTop") == 0
+    assert pg.get_attribute('#tab-' + view, 'aria-selected') == 'true'
+    panel = pg.locator('#panel-overview' if view == 'overview' else '#card-' + view).bounding_box()
+    assert panel['y'] >= 0, panel
+    if hash == '#contact':           # Contact shows the contact part of the NiBi HQ card
+        head = pg.locator('#contact').bounding_box()
+        assert panel['y'] <= head['y'] and head['y'] + head['height'] <= min(panel['y'] + panel['height'], h), (head, panel)
+    assert errors == [], errors
+    pg.wait_for_timeout(300)                                    # the address keeps its island link
+    assert pg.evaluate('location.hash') == hash
+
+def test_skip_link_takes_keyboard_focus_to_the_islands(browser, site):
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT)
+    pg.keyboard.press('Tab')
+    assert pg.evaluate("document.activeElement.classList.contains('skip')")
+    pg.keyboard.press('Enter'); pg.wait_for_timeout(200)
+    assert active_id(pg) == 'tab-overview', active_id(pg)
+
+def test_see_the_islands_shows_the_island_names(browser, site):
+    pg, _ = open_page(browser, site + '/index.html?' + LIGHT)
+    pg.click('#panel-overview .actions a[href="#games"]'); pg.mouse.move(5, 400); pg.wait_for_timeout(500)
+    for t in TABS:        # (a closed tab is 48 px wide)
+        assert pg.evaluate(f"document.getElementById('tab-{t}').getBoundingClientRect().width") > 110, t

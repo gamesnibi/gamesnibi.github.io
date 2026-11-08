@@ -7,7 +7,7 @@ from PIL import Image
 from conftest import open_page, LIGHT
 from check_sea import wait
 
-SHOWN = """(id) => { const p = document.querySelector('.still[data-view="' + id + '"]');
+SHOWN = """(id) => { const p = document.querySelector('.view-still[data-view="' + id + '"]');
   return !!p && getComputedStyle(p).opacity === '1' && getComputedStyle(p).visibility !== 'hidden'; }"""
 
 @pytest.fixture(scope='module')
@@ -24,14 +24,18 @@ def test_without_webgl_the_tabs_swap_still_pictures(nogl, site):
     pg.click('#tab-pondreels')
     assert wait(pg, "(" + SHOWN + ")('pondreels')", 5), 'the Pond Reels picture never showed'
     assert wait(pg, "!(" + SHOWN + ")('overview')", 3), 'the overview picture never faded out'
-    src = pg.evaluate("""document.querySelector('.still[data-view="pondreels"] img').currentSrc""")
+    pg.wait_for_timeout(1000)
+    assert pg.evaluate("getComputedStyle(document.documentElement).opacity") == '1', 'the page itself faded out'
+    assert not frame_is_blank(pg.screenshot()), 'the page is blank'
+    src = pg.evaluate("""document.querySelector('.view-still[data-view="pondreels"] img').currentSrc""")
     assert 'pondreels' in src and src.endswith('.webp'), src
-    assert pg.evaluate("""document.querySelector('.still[data-view="pondreels"] img').complete && document.querySelector('.still[data-view="pondreels"] img').naturalWidth > 0""")
+    assert pg.evaluate("""document.querySelector('.view-still[data-view="pondreels"] img').complete && document.querySelector('.view-still[data-view="pondreels"] img').naturalWidth > 0""")
     assert errors == [], errors
 
-def frame_is_black(png):
+def frame_is_blank(png):
+    """all black, all white or one flat colour: anything but a picture of the islands"""
     a = np.asarray(Image.open(io.BytesIO(png)).convert('L'), dtype=np.float32)
-    return (a < 24).mean() > 0.9
+    return (a < 24).mean() > 0.9 or (a > 240).mean() > 0.9 or a.std() < 12
 
 def test_losing_the_webgl_context_falls_back_without_a_black_frame(browser, site):   # Review Focus 2
     pg, errors = open_page(browser, site + '/index.html?' + LIGHT, width=640, height=400)
@@ -43,8 +47,14 @@ def test_losing_the_webgl_context_falls_back_without_a_black_frame(browser, site
         if pg.evaluate("document.documentElement.classList.contains('still')"): break
     assert pg.evaluate("document.documentElement.classList.contains('still')"), 'still mode did not take over within 1 s'
     for _ in range(3): shots.append(pg.locator('#stage').screenshot(timeout=5000))
-    assert not any(frame_is_black(s) for s in shots), 'the stage went black'
+    assert not any(frame_is_blank(s) for s in shots), 'the stage went blank'
     assert wait(pg, "(" + SHOWN + ")('overview')", 5)
+    # and the tabs keep working on the pictures
+    pg.click('#tab-lockin')
+    assert wait(pg, "(" + SHOWN + ")('lockin')", 5), 'no Lockin-Inator picture after the loss'
+    pg.mouse.move(300, 200); pg.mouse.move(320, 220)
+    assert not frame_is_blank(pg.locator('#stage').screenshot(timeout=5000))
+    assert errors == [], errors
 
 def test_reduced_motion_cuts_straight_to_the_picture(browser, site):
     pg, _ = open_page(browser, site + '/index.html', reduced_motion='reduce')

@@ -52,14 +52,14 @@ async function startSea() {
     const { createSea } = await import('./sea/scene.js');
     const test = params.get('test') === '1';   // the checks run in a software renderer: they may draw at a lower scale
     sea = await createSea(canvas, { quality: quality(), reducedMotion, view: tabs.current() || 'overview', pixelRatio: test ? +params.get('scale') || 0 : 0 });
-    onIslandChange((id) => sea.view(id));
+    onIslandChange((id) => { if (sea) sea.view(id); });
     // Bramble watches the mouse; on a touch screen he looks where you last touched, for a few seconds
     let touchT = 0;
-    stage.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') sea.pointer(...toSea(e)); }, { passive: true });
-    stage.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') sea.pointer(null); });
+    stage.addEventListener('pointermove', (e) => { if (sea && e.pointerType !== 'touch') sea.pointer(...toSea(e)); }, { passive: true });
+    stage.addEventListener('pointerleave', (e) => { if (sea && e.pointerType !== 'touch') sea.pointer(null); });
     stage.addEventListener('pointerdown', (e) => {
-      if (e.pointerType !== 'touch') return;
-      sea.pointer(...toSea(e)); clearTimeout(touchT); touchT = setTimeout(() => sea.pointer(null), 3000);
+      if (!sea || e.pointerType !== 'touch') return;
+      sea.pointer(...toSea(e)); clearTimeout(touchT); touchT = setTimeout(() => { if (sea) sea.pointer(null); }, 3000);
     }, { passive: true });
     // tapping Bramble on the sea greets him (taps on the cards, tabs and buttons are theirs)
     stage.addEventListener('click', (e) => {
@@ -69,7 +69,7 @@ async function startSea() {
     // the bubble follows his head while it shows
     sea.onFrame(() => { if (sea && bubbleEl.classList.contains('show')) { const p = sea.brambleScreen(); if (p) placeBubble(p[0], p[1]); } });
     // if the graphics chip resets or drops the page, the still pictures take over (and stay)
-    sea.onLost(() => { sea = null; goStill(); });
+    sea.onLost(() => { const gone = sea; sea = null; gone.dispose(); goStill(); });
     document.documentElement.classList.add('live');
     sea.start();
     if (test) window.__sea = { state: sea.state, view: sea.view, heightAt: sea.heightAt, project: sea.project };
@@ -110,15 +110,15 @@ function whenLoaded(p) {
   if (img.complete && img.naturalWidth) on(); else img.addEventListener('load', on, { once: true });
 }
 function stillPicture(id) {
-  let p = stage.querySelector('.still[data-view="' + id + '"]');
+  let p = stage.querySelector('.view-still[data-view="' + id + '"]');
   if (p) { whenLoaded(p); return p; }
   if (!STILL_ALT[id]) return null;
   p = document.createElement('picture');
-  p.className = 'still'; p.dataset.view = id;
+  p.className = 'view-still'; p.dataset.view = id;
   p.innerHTML = '<source media="(max-aspect-ratio: 1/1)" srcset="assets/stills/' + id + '-tall.webp" width="900" height="1600">'
     + '<img src="assets/stills/' + id + '-wide.webp" width="1600" height="900" decoding="async" alt="">';
   p.querySelector('img').alt = STILL_ALT[id];
-  stage.querySelector('.still:last-of-type').after(p);
+  stage.querySelector('.view-still:last-of-type').after(p);
   whenLoaded(p);
   return p;
 }

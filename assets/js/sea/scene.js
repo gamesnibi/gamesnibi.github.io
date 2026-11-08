@@ -334,6 +334,7 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
   const frameCbs = [], lostCbs = [];
 
   function resize() {
+    watch();
     W = Math.max(1, canvas.clientWidth); H = Math.max(1, canvas.clientHeight);
     renderer.setSize(W, H, false);
     camera.aspect = W / H;
@@ -398,9 +399,18 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
     oneOff = requestAnimationFrame((now) => { oneOff = 0; draw(now); if (flight) requestFrame(); });
   }
 
-  // (the 1px inset: a stage whose edge merely touches the screen, as when #beta is at the top, counts as off-screen)
-  const io = new IntersectionObserver((entries) => { onScreen = entries[entries.length - 1].isIntersecting; sync(); if (onScreen) requestFrame(); }, { rootMargin: '-1px 0px' });
-  io.observe(canvas.closest('section') || canvas);
+  // The stage counts as off-screen once no more of it shows than the strip under the top bar (the browser's jump to
+  // #beta leaves exactly that), so the observer's top edge sits just below the bar; re-made if the bar changes size.
+  let io = null, barH = -1;
+  function watch() {
+    const bar = document.querySelector('.topbar'), h = bar ? bar.offsetHeight : 0;
+    if (h === barH) return;
+    barH = h;
+    if (io) io.disconnect();
+    io = new IntersectionObserver((entries) => { onScreen = entries[entries.length - 1].isIntersecting; sync(); if (onScreen) requestFrame(); }, { rootMargin: `-${h + 1}px 0px -1px 0px` });
+    io.observe(canvas.closest('section') || canvas);
+  }
+  watch();
   const onVis = () => sync();
   document.addEventListener('visibilitychange', onVis);
   const ro = new ResizeObserver(resize);
@@ -445,7 +455,7 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
     heightAt: G.at,
     project(x, y, z) { v3.set(x, y, z).project(camera); return [((v3.x + 1) / 2) * W, ((1 - v3.y) / 2) * H]; },
     dispose() {
-      started = false; sync(); io.disconnect(); ro.disconnect();
+      started = false; sync(); if (io) io.disconnect(); ro.disconnect();
       document.removeEventListener('visibilitychange', onVis);
       scene.traverse((o) => { o.geometry?.dispose(); [].concat(o.material || []).forEach((m) => m.dispose()); });
       Object.values(T).forEach((t) => t.dispose());

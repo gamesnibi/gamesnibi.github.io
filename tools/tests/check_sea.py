@@ -78,9 +78,12 @@ def test_rapid_tab_clicks_end_on_the_last_island(browser, site):          # Revi
 
 def test_rendering_stops_when_the_sea_scrolls_away(browser, site):
     pg, _ = ready_page(browser, site)
-    pg.evaluate("window.scrollTo({ top: document.getElementById('beta').offsetTop, behavior: 'instant' })")   # (the page scrolls smoothly otherwise)
-    assert pg.evaluate("document.getElementById('stage').getBoundingClientRect().bottom") <= 0, 'the sea should be off-screen'
-    pg.wait_for_timeout(1500)
+    pg.evaluate("location.hash = '#beta'")      # the poster's link: the browser's own jump leaves the stage's foot under the top bar
+    last, steady = -1, 0
+    while steady < 5:                           # let the (smooth) jump finish
+        pg.wait_for_timeout(200); y = pg.evaluate('scrollY'); steady = steady + 1 if y == last else 0; last = y
+    foot, bar = pg.evaluate("[document.getElementById('stage').getBoundingClientRect().bottom, document.querySelector('.topbar').offsetHeight]")
+    assert 0 < foot <= bar + 1, ('not at #beta', foot, bar)
     f1 = pg.evaluate('window.__sea.state.frames'); pg.wait_for_timeout(3000)
     assert pg.evaluate('window.__sea.state.frames') == f1, 'still rendering while hidden'
     pg.evaluate("window.scrollTo({ top: 0, behavior: 'instant' })")
