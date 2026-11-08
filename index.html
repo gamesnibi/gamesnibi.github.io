@@ -16,7 +16,7 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/sniglet-800.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/nunito-var.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 <script>document.documentElement.classList.add('js')</script>
 <script type="module" src="assets/js/main.js"></script>
 </head>
@@ -77,6 +77,7 @@
           </div>
         </header>
         <span class="tag">Coming soon to Android</span>
+        <button type="button" id="say-hi" class="btn btn-hi">Say hi to Bramble</button>
         <div class="gallery" aria-label="Pond Reels screenshots">
           <img src="assets/shot-pond.webp" alt="The dock at Willow Pond with snowy mountains and a radio on a crate" loading="lazy" width="540" height="1170">
           <img src="assets/shot-reel.webp" alt="Reeling in a fish with the brass wheel and tension gauge" loading="lazy" width="540" height="1170">
@@ -144,7 +145,8 @@
         <h2>More on the way.</h2>
       </article>
     </div>
-  </section>
+    <div id="bubble" class="bubble" aria-live="polite"></div>
+    </section>
 
   <section id="beta" class="beta">
     <div class="beta-wrap">

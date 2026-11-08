@@ -6,11 +6,13 @@ import { loadBin } from './format.js';
 import { fbm, vnoise, rng, sstep, grove, CLEARINGS } from './world.js';
 import { createWater } from './water.js';
 import { FLIGHT, INTRO, INTRO_FROM, fit, lerpPose, applyPose } from './views.js';
+import { createBramble } from './bramble.js';
 
 const BASE = new URL('../../3d/', import.meta.url);
 const MIST = [175, 300];
 const SUN = new THREE.Vector3(-0.5, 0.6, 0.48).normalize();
 const HORIZON = new THREE.Color('#cfe4ee');
+const BRAMBLE = { at: [-72, 0, 30], scale: 3, hit: 0.8 };   // in the Pond Reels bay; storybook size, so you can see him
 
 // fog measured outward from the middle of the archipelago (not from the camera), so the edges sink into the mist
 THREE.ShaderChunk.fog_vertex = `#ifdef USE_FOG
@@ -263,7 +265,8 @@ function buildClouds(count, detail) {
 // ------------------------------------------------------------------ the sea
 export async function createSea(canvas, { quality = 'high', reducedMotion = false, view: first = 'overview', pixelRatio = 0 } = {}) {
   const low = quality === 'low';
-  const [world, barModel, T] = await Promise.all([loadBin(new URL('world.bin', BASE)), loadBin(new URL('models/bar.bin', BASE)), loadTextures()]);
+  const [world, barModel, brambleModel, boatModel, T] = await Promise.all(
+    ['world.bin', 'models/bar.bin', 'models/bramble.bin', 'models/boat.bin'].map((f) => loadBin(new URL(f, BASE))).concat(loadTextures()));
   const G = heightGrid(world), VIEWS = world.meta.views;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -308,9 +311,16 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
   water.mesh.renderOrder = -1;     // the sea first, so the sea floor under it is never shaded (it fails the depth test)
   scene.add(water.mesh);
 
+  // Barnaby Bramble in his rowboat, turned to face the Pond Reels view
+  const bramble = createBramble({ bramble: brambleModel, boat: boatModel }, THREE);
+  bramble.group.position.fromArray(BRAMBLE.at);
+  bramble.group.scale.setScalar(BRAMBLE.scale);
+  { const c = VIEWS.pondreels.pos; bramble.group.rotation.y = Math.atan2(c[0] - BRAMBLE.at[0], c[2] - BRAMBLE.at[2]); }
+  scene.add(bramble.group);
+
   // ---------------------------------------------------------------- camera, flights and the render loop
   const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 4000);
-  const state = { view: first, flying: false, fps: 0, frames: 0, pointer: [0, 0] };
+  const state = { view: first, flying: false, fps: 0, frames: 0, pointer: null, brambleYaw: 0, waving: false, brambleHead: [0, 0, 0] };
   let W = 1, H = 1;
   const posed = (id) => fit(VIEWS[id], W / H, id);
   let cur = posed(first), flight = null;
@@ -333,6 +343,7 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
     requestFrame();
   }
 
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), look = new THREE.Vector3(), hp = new THREE.Vector3(), hit = new THREE.Sphere();
   let ready = false, time = 0, last = 0, raf = 0, oneOff = 0, started = false, onScreen = true, lost = false, fpsN = 0, fpsT = 0;
   function update(now, dt) {
     if (!reducedMotion) { time += dt; water.setTime(time); clouds.rotation.y = time * 0.004; }
@@ -343,6 +354,15 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
       if (p >= 1) { flight = null; state.flying = false; }
     }
     applyPose(camera, cur);
+    // Bramble looks at what you point at: a point half way along the pointer's ray from the camera to him
+    if (state.pointer) {
+      camera.updateMatrixWorld();
+      ray.setFromCamera(ndc.set(state.pointer[0], state.pointer[1]), camera);
+      bramble.lookAt(ray.ray.at(camera.position.distanceTo(bramble.headPosition(hp)) * 0.5, look));
+    } else bramble.lookAt(null);
+    bramble.update(dt, time);
+    state.brambleYaw = bramble.yaw; state.waving = bramble.waving;
+    bramble.headPosition(hp).toArray(state.brambleHead);
     for (const cb of frameCbs) cb(dt, time);
   }
   function draw(now) {
@@ -395,7 +415,20 @@ export async function createSea(canvas, { quality = 'high', reducedMotion = fals
   return {
     THREE, scene, camera, renderer, state,
     view,
-    pointer(x, y) { state.pointer[0] = x; state.pointer[1] = y; },
+    pointer(x, y) { state.pointer = x === null ? null : [x, y]; },   // -1..1 across the canvas, or null when it leaves
+    // Bramble waves and talks
+    greet() { bramble.poke(); state.waving = true; requestFrame(); },
+    // a tap at (x, y) (-1..1): true if it touched Bramble (a sphere round his head)
+    tap(x, y) {
+      camera.updateMatrixWorld();
+      ray.setFromCamera(ndc.set(x, y), camera);
+      return ray.ray.intersectsSphere(hit.set(bramble.headPosition(hp), BRAMBLE.hit * BRAMBLE.scale));
+    },
+    // where his head is on the canvas (css px), or null when he's behind the camera
+    brambleScreen() {
+      bramble.headPosition(v3).project(camera);
+      return v3.z > 1 ? null : [((v3.x + 1) / 2) * W, ((1 - v3.y) / 2) * H];
+    },
     start() { started = true; sync(); },
     stop() { started = false; sync(); },
     onLost(cb) { lostCbs.push(cb); },
