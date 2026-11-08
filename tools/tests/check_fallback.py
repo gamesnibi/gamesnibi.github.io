@@ -59,9 +59,14 @@ def test_losing_the_webgl_context_falls_back_without_a_black_frame(browser, site
 def test_reduced_motion_cuts_straight_to_the_picture(browser, site):
     pg, _ = open_page(browser, site + '/index.html', reduced_motion='reduce')
     assert wait(pg, "document.documentElement.classList.contains('still')", 10), 'reduced motion should get the stills'
-    ms = pg.evaluate("""(shown) => new Promise((res) => { const t0 = performance.now();
-      document.getElementById('tab-lockin').click();
-      const f = () => (eval(shown))('lockin') ? res(performance.now() - t0) : (performance.now() - t0 > 3000 ? res(-1) : requestAnimationFrame(f)); f(); })""", "(" + SHOWN + ")")
+    TIME = """([shown, id]) => new Promise((res) => { const t0 = performance.now();
+      document.getElementById('tab-' + id).click();
+      const f = () => (eval(shown))(id) ? res(performance.now() - t0) : (performance.now() - t0 > 3000 ? res(-1) : requestAnimationFrame(f)); f(); })"""
+    # a picture's first showing waits for its download; that only has to arrive
+    assert pg.evaluate(TIME, ["(" + SHOWN + ")", 'lockin']) >= 0, 'the Lockin-Inator picture never showed'
+    assert pg.evaluate(TIME, ["(" + SHOWN + ")", 'overview']) >= 0
+    # switching between loaded pictures is a cut, not a fade
+    ms = pg.evaluate(TIME, ["(" + SHOWN + ")", 'lockin'])
     assert 0 <= ms <= 100, ms
 
 def test_first_paint_stays_under_450_kb_before_the_3d_loads(browser, site):

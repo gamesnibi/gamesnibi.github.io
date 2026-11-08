@@ -8,7 +8,7 @@
 :root {
   --sky: #f2fbff; --shallows: #c8eeff; --lagoon: #2cc4e8; --azure: #1a8cff; --deep: #0b6fc0; --ink: #0b3a6e;
   --sand: #f6e3b0; --sun: #ffd23f; --palm: #3fae4a; --white: #ffffff;
-  --so-orange: #ff7a00; --so-black: #0e0b09; --so-cream: #fff4e6;
+  --li-purple: #9d5cff; --li-lilac: #c9a7ff; --li-black: #0b0414; --li-ink: #f3eefb; --li-soft: #c7bcdc;   /* Lockin-Inator: black and purple */
   --ink-soft: #2a5584;
   --shadow: 0 18px 40px rgba(4, 60, 110, .18), 0 2px 6px rgba(4, 60, 110, .08);
   --radius: 24px;
@@ -107,16 +107,16 @@ html.js .hero-logo { animation: logo-rise 1.3s cubic-bezier(.2, .9, .3, 1.15) .2
 .gallery img { flex: none; height: 300px; width: auto; aspect-ratio: 540 / 1170; border-radius: 16px; scroll-snap-align: start; box-shadow: 0 6px 14px rgba(4, 60, 110, .18); }
 .gallery-9x16 img { aspect-ratio: 9 / 16; }
 
-.card-lockin { background: var(--so-black); color: var(--so-cream); }
-.card-lockin h2 { font: 900 32px/1 var(--so); font-stretch: 125%; color: var(--white); }
-.card-lockin .dash { color: var(--so-orange); }
-.card-lockin .tagline, .card-lockin p { color: #f0dfcb; }
+.card-lockin { background: var(--li-black); color: var(--li-ink); box-shadow: 0 14px 40px rgba(76, 29, 149, .35); }
+.card-lockin h2 { font: 900 32px/1 var(--so); font-stretch: 125%; color: var(--li-ink); }
+.card-lockin .dash { color: var(--li-purple); }
+.card-lockin .tagline, .card-lockin p { color: var(--li-soft); }
 .card-lockin .lockup { width: 260px; display: block; margin: 0 0 8px -6px; }
-.card-lockin .tag-beta { background: var(--so-orange); color: var(--so-black); }
-.card-lockin .features li::before { background: var(--so-orange); }
-.card-lockin a { color: #ffb36b; }
-.card-lockin .notice-pill { background: #2a211b; color: var(--so-cream); }
-.card-lockin :focus-visible { outline-color: var(--so-orange); }
+.card-lockin .tag-beta { background: var(--li-purple); color: var(--li-black); }
+.card-lockin .features li::before { background: var(--li-purple); }
+.card-lockin a { color: var(--li-lilac); }
+.card-lockin .notice-pill { background: #22103f; color: var(--li-ink); }
+.card-lockin :focus-visible { outline-color: var(--li-lilac); }
 /* Bramble: the greeting button (Pond Reels card) and his speech bubble over the sea */
 .btn-hi { display: inline-block; margin: 12px 0 4px 8px; padding: 8px 14px; font-size: 14px; }
 html:not(.js) .btn-hi, html:not(.js) .bubble { display: none; }
@@ -125,27 +125,29 @@ html:not(.js) .btn-hi, html:not(.js) .bubble { display: none; }
   opacity: 0; transform: translateY(6px) scale(.96); transform-origin: var(--tail, 50%) 100%; transition: opacity .2s ease, transform .25s ease; pointer-events: none; }
 .bubble.show { opacity: 1; transform: none; }
 .bubble::after { content: ''; position: absolute; left: var(--tail, 50%); bottom: -7px; width: 16px; height: 16px; background: inherit; border-radius: 3px; transform: translateX(-50%) rotate(45deg); }
-.btn-so { font-family: var(--so); font-weight: 800; border-radius: 12px; background: var(--so-orange); color: var(--so-black) !important; box-shadow: 0 4px 0 #a8460a; margin: 6px 10px 6px 0; }
-.btn-so.ghost { background: transparent; color: var(--so-cream) !important; box-shadow: inset 0 0 0 2px var(--so-orange); }
+.btn-li { font-family: var(--so); font-weight: 800; border-radius: 12px; background: var(--li-purple); color: var(--li-black) !important; box-shadow: 0 4px 0 #5b2bb0; margin: 6px 10px 6px 0; }
+.btn-li:hover { background: #b07dff; }
+.btn-li.ghost { background: transparent; color: var(--li-ink) !important; box-shadow: inset 0 0 0 2px var(--li-purple); }
+.btn-li.ghost:hover { background: rgba(157, 92, 255, .14); }
 .contact-head { margin-top: 22px; }
 .card-soon h2 { font-size: 26px; }
 
-/* ---------------------------------------------------------------- the beta sign-up (Señor Orange look) */
-.beta { background: var(--so-black); color: var(--so-cream); padding: 64px 16px 72px; scroll-margin-top: var(--top); }
+/* ---------------------------------------------------------------- the beta sign-up (Lockin-Inator's black and purple) */
+.beta { background-color: var(--li-black); background-image: radial-gradient(ellipse 70% 80% at 78% 40%, #2a1250 0, #12061f 48%, var(--li-black) 100%); color: var(--li-ink); padding: 64px 16px 72px; scroll-margin-top: var(--top); }
 .beta-wrap { max-width: 760px; margin: 0 auto; }
 .beta .lockup { width: 300px; display: block; margin: 0 0 18px -8px; }
-.beta-kicker { font: 800 15px/1 var(--so); color: var(--so-orange); margin: 0 0 10px; }
-.beta h2 { font: 900 clamp(30px, 5vw, 46px)/1.04 var(--so); font-stretch: 125%; color: var(--white); }
-.beta h2 em { font-style: normal; color: var(--so-orange); }
-.beta-lead { font-size: 18px; color: #f0dfcb; }
+.beta-kicker { font: 800 15px/1 var(--so); color: var(--li-lilac); margin: 0 0 10px; }
+.beta h2 { font: 900 clamp(30px, 5vw, 46px)/1.04 var(--so); font-stretch: 125%; color: var(--li-ink); }
+.beta h2 em { font-style: normal; color: var(--li-lilac); }
+.beta-lead { font-size: 18px; color: var(--li-soft); }
 .beta-steps { list-style: none; counter-reset: step; padding: 0; margin: 24px 0; display: grid; gap: 14px; }
-.beta-steps li { counter-increment: step; position: relative; background: #1b1511; border-radius: 18px; padding: 18px 20px 18px 66px; }
-.beta-steps li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 34px; height: 34px; border-radius: 50%; background: var(--so-orange); color: var(--so-black); font: 900 18px/34px var(--so); text-align: center; }
-.beta-steps h3 { font: 800 19px/1.2 var(--so); color: var(--white); }
-.beta-steps p { color: #e8d7c3; }
-.beta a { color: #ffb36b; }
-.beta-fine { font-size: 14px; color: #cdbba7; }
-.beta :focus-visible { outline-color: var(--so-orange); }
+.beta-steps li { counter-increment: step; position: relative; background: rgba(26, 11, 46, .72); border: 1px solid #3b2463; border-radius: 18px; padding: 18px 20px 18px 66px; }
+.beta-steps li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 34px; height: 34px; border-radius: 50%; background: var(--li-purple); color: var(--li-black); font: 900 18px/34px var(--so); text-align: center; }
+.beta-steps h3 { font: 800 19px/1.2 var(--so); color: var(--li-ink); }
+.beta-steps p { color: #b3a8cb; }
+.beta a { color: var(--li-lilac); }
+.beta-fine { font-size: 14px; color: #9d92b6; }
+.beta :focus-visible { outline-color: var(--li-lilac); }
 
 /* ---------------------------------------------------------------- footer */
 .footer { background: var(--sky); padding: 28px 16px 40px; }
